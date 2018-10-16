@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,400" rel="stylesheet">
+
+    <style>
+
+      text.title {
+      	font-size: 100pt;
+        font-family:'Titillium Web', sans-serif;
+        font-weight: 400;
+        fill: #e6e6e6;
+      }
+      text.description {
+      	font-size: 20pt;
+        font-family: 'Titillium Web', sans-serif;
+        font-weight: 200;
+        fill: #c4c4c4;
+      }
+
+      rect.bordered {
+        stroke: #2B2B2C;
+        stroke-width:0.15px;
+      }
+      text.labels {
+        font-size: 8pt;
+        font-family: 'Titillium Web', sans-serif;
+        font-weight: 200;
+        fill: #c4c4c4;
+      }
+
+      div {
+          background: linear-gradient(to right, #262626 0%, #383838 100%);
+      }
+
+    </style>
+    <script src="http://d3js.org/d3.v3.js"></script>
+  </head>
+  <body>
+
+    <div id="chart"></div>
+    </div>
+
+    <script type="text/javascript">
+
+      var margin = { top: 200, right: 0, bottom: 50, left: 1200 },
+          width = 2800- margin.left - margin.right,
+          height = 2500 - margin.top - margin.bottom,
+          gridSize = Math.floor(width / 40),
+          legendWidth = gridSize/1.75,
+          scale = 30,
+          colors =   ["#303030", "#37342E", "#3E382D", "#453D2B", "#4C412A", "#534628", "#5A4A27", "#614E25", "#695324", "#705722", "#775C21", "#7E601F", "#85641E", "#8C691C", "#936D1B", "#9B7219", "#A27618", "#A97B16", "#B07F15", "#B78313", "#BE8812", "#C58C10", "#CD910F", "#D4950D", "#DB990C", "#E29E0A", "#E9A209", "#F0A707", "#F7AB06", "#FFB005"],
+          countries = ["Nauru", "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cameroon", "Cape Verde",
+          "Central African Republic", "Chad", "Comoros", "Congo, Dem. Rep.", "Congo, Rep.", "Cote d'Ivoire", "Djibouti",
+          "Egypt, Arab Rep.", "Equatorial Guinea", "Eritrea", "Ethiopia", "Gabon", "Gambia, The", "Ghana", "Guinea", "Guinea-Bissau",
+          "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", "Morocco", "Mozambique",
+          "Namibia", "Niger", "Nigeria", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone", "Somalia",
+          "South Africa", "South Sudan", "Sudan", "Swaziland", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe"],
+          years = ["1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006",
+          "2007","2008","2009","2010","2011","2012","2013","2014","2015","2016"],
+          title = ["africa's", "accessibility", "to electricity"],
+          description = ["a heatmap shows all the 55 countries in africa, and their", " accessibility to electricity since 1990."];
+
+
+          datasets = ["data/access_data_rank.tsv"];
+
+
+
+      var svg = d3.select("#chart").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var chartTitle = svg.selectAll(".chartTitle")
+          .data(title)
+          .enter().append("text")
+          .text(function (d) { return d; })
+          .attr("x", -1100)
+          .attr("y", function (d, i) { return i * 120 + 100; })
+          .attr("class", "title");
+
+      var chartDescription = svg.selectAll(".chartDescription")
+          .data(description)
+          .enter().append("text")
+          .text(function (d) { return d; })
+          .attr("x", -1100)
+          .attr("y", function (d, i) { return i * 35 +450; })
+          .attr("class", "description");
+
+
+      var countriesLabels = svg.selectAll(".countriesLabels")
+          .data(countries)
+          .enter().append("text")
+            .text(function (d) { return d; })
+            .attr("x", -5)
+            .attr("y", function (d, i) { return i * gridSize; })
+            .style("text-anchor", "end")
+            .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+            .attr("class", "labels");
+
+      var yearsLabels = svg.selectAll(".yearsLabel")
+          .data(years)
+          .enter().append("text")
+            .text(function(d) { return d; })
+            .attr("x", function(d, i) { return i * gridSize; })
+            .attr("y", -5)
+            .style("text-anchor", "middle")
+            .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+            .attr("class", "labels");
+
+
+      var heatmap = function(tsvFile) {
+        d3.tsv(tsvFile,
+        function(d) {
+          return {
+            years : +d.years_column,
+            countries: +d.countries_row,
+            value: +d.value
+          };
+        },
+        function(error, data) {
+          var colorScale = d3.scale.quantile()
+              .domain([0, scale - 1, d3.max(data, function (d) { return d.value; })])
+              .range(colors);
+
+          var squares = svg.selectAll(".years")
+              .data(data, function(d) {return d.countries+':'+d.years;});
+
+          squares.append("country");
+
+          squares.enter().append("rect")
+              .attr("x", function(d) { return (d.countries - 1) * gridSize; })
+              .attr("y", function(d) { return (d.years - 1) * gridSize; })
+              .attr("class", "years bordered")
+              .attr("width", gridSize)
+              .attr("height", gridSize)
+              .style("fill", colors[0]);
+
+          squares.transition().duration(1500)
+              .style("fill", function(d) { return colorScale(d.value); });
+
+          squares.select("country").text(function(d) { return d.value; });
+
+          squares.exit().remove();
+
+          var legend = svg.selectAll(".legend")
+              .data([0].concat(colorScale.quantiles()), function(d) { return d; });
+
+          legend.enter().append("g")
+              .attr("class", "legend");
+
+          legend.append("rect")
+            .attr("x", function(d, i) { return legendWidth * i- 1100; })
+            .attr("y", 550)
+            .attr("width", legendWidth)
+            .attr("height", gridSize/2)
+            .style("fill", function(d, i) { return colors[i]; });
+
+          legend.append("text")
+            .attr("class", "labels")
+            .text("100%")
+            .attr("x", function(d, i) { return legendWidth -462 ; })
+            .attr("y", 590);
+
+          legend.exit().remove();
+
+          });
+
+
+
+
+      };
+
+      heatmap(datasets[0]);
+
+    </script>
+  </body>
+</html>
