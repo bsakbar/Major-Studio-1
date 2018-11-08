@@ -8,7 +8,7 @@
                 container: 'map',
                 style: 'mapbox://styles/bsakbar/cjo3muxtq0x6a2sprkvtpx3d4',
                 center: [6.513,19.669], // 9.1021° N, 18.2812° E
-                zoom: 3,
+                zoom: 2.8,
                 pitch: 100,
                 bearing: 50,
                 interactive: false
