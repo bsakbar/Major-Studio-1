@@ -2,10 +2,11 @@
 <head>
     <meta charset="utf-8">
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    
     <title>Final Assignment</title>
     
     <script src="https://d3js.org/d3.v5.min.js"></script>
-     <script language="javascript" type="text/javascript" src="Final_Project.js"></script>
+     <script language="javascript" type="text/javascript" src="Final_Project_2.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
   
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet'/>
@@ -14,7 +15,7 @@
         body {
         	padding: 0px;
         	margin: 0px;
-        	background-color: #1a1a1a;
+        	background-color: #0a141c;
     
         }
         #map {
@@ -34,54 +35,636 @@
         text {
             transition: fill-opacity 0.5s;
             font-size: 10pt;
-            font-family: Helvetica;
-            font-weight:600;
+            font-family: 'Miriam Libre', sans-serif;
+            font-weight:400;
         }
+        .Timeslider {
+            -webkit-appearance: none;
+            margin: 550px 103px;
+            padding: 0px 0px;
+            width: 388px;
+            height: 0.5px;
+            border-radius: none;   
+            background: none;
+            outline: none;
+            opacity: none;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            cursor: pointer;
+        }
+
+        .Timeslider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 3px;
+            height: 18px;
+            border-radius: none; 
+            background: #f93d3d;
+            cursor: pointer;
+        }
+        
+        .Timeslider::-moz-range-thumb {
+            width: 1px;
+            height: 18px;
+            border-radius: none;
+            background: #f93d3d;
+            cursor: pointer;
+        }   
+          
+       .Accessslider {
+            -webkit-appearance: none;
+            margin: 408px 103px;
+            padding: 0px 0px;
+            width: 388px;
+            height: 0.5px;
+            border-radius: none;   
+            background: none;
+            outline: none;
+            opacity: none;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            cursor: pointer;
+        }
+
+        .Accessslider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 3px;
+            height: 18px;
+            border-radius: none; 
+            background: #f93d3d;
+            cursor: pointer;
+        }
+        
+        .Accessslider::-moz-range-thumb {
+            width: 1px;
+            height: 18px;
+            border-radius: none;
+            background: #f93d3d;
+            cursor: pointer;
+        }   
+        
+        .radio{
+            transition: 0.3s all linear;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 100%;
+            width: 10px;
+            height: 10px;
+            color: transparent;
+            background-color: transparent;
+            margin: 3px 3px;
+            border-radius: 100%;
+            border: 0.5px solid white;
+            border-color: white;
+        }
+        .radio:checked {
+            background-color: #f93d3d;
+            border: none;
+        }
+        
+        .radio:active{
+             background-color: #f93d3d;
+             color: #f93d3d;
+             outline: 3px #f93d3d;
+        }
+        
+        
     </style>
 </head>
 
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1919.6 1079.2"><defs><style>.a{
-    fill:#0a141c;
-}
-.b{
-    fill:#091116;
-}
-.c,.e{
-    fill:#fff;
-    font-family:MiriamLibre-Regular, Miriam Libre;
-}
-.c{
-    font-size:9.4px;
-}
-.d{
-    fill:none;
-    stroke:#f93d3d;
-    stroke-miterlimit:10;
-    stroke-width:2px;
-}
-.e{
-    font-size:48px;
-}
-.f{
-    fill:#f93d3d;
-    font-family:MiriamLibre-Bold, Miriam Libre;
-    font-weight:700;
-}
-</style></defs>
-<rect class="a" width="1919.6" height="1079.2"/>
-<path class="b" d="M1433.8,1078.5H0V1.5H350.8Z"/>
-<text class="c" transform="translate(1709.707 997.841)">
-    <tspan x="0" y="0">COPYRIGHTS | DATA SOURCE</tspan></text>
-    // arrow
-    <path class="d" d="M38.7,600.6,30,592l8.7-8.6" transform="translate(148.7 1184) rotate(180)"/>
-    <line class="d" x1="0.5" y2="774" transform="translate(74.1 224.2)"/>
-    <text class="e" transform="translate(70.342 103.812)"><tspan x="0" y="0">How does access to</tspan>
-    <tspan class="f" y="0" xml:space="preserve">[ </tspan><tspan y="0">electricity</tspan>
-    <tspan class="f" y="0">]</tspan><tspan x="0" y="59">affect </tspan><tspan class="f" y="59">[</tspan>
-    <tspan y="59">education</tspan><tspan class="f" y="59"> ]</tspan><tspan y="59" xml:space="preserve"> in Africa?</tspan></text></svg>
+    
 
     
+    <!--bottom filter box-->
+        <!--Year range  -->
+         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider" id="YearRange">
+
+   <!--<input " margin-top: 10px;margin-left:10px"; type="button" value="test" onclick="myFunction()"/>-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        border:none;
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        width: 200px;
+        margin: 662px 110px;
+        padding: 10px 10px;" type="text" name="country" placeholder="Enter Country" />
+        <!--width: 150px;-->
+        <!--padding: 15px 70px 772.483px 120.495px;-->
+        
+        <!--North Africa Button-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 8px 60px;
+        display: inline-block;
+        margin: 768px 101px;
+        cursor: pointer;
+        "type="button" name="region" />
+        
+        <!--West Africa Button-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 8px 50px;
+        display: inline-block;
+        margin: 768px 230px;
+        cursor: pointer;
+        "type="button" name="region" />
+        
+        <!--East Africa Button-->
+          <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 8px 50px;
+        display: inline-block;
+        margin: 768px 340px;
+        cursor: pointer;
+        "type="button" name="region" />
+        
+         <!--Central Africa Button-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 7px 64px;
+        display: inline-block;
+        margin: 807px 103px;
+        cursor: pointer;
+        "type="button" name="region" />
+        
+        <!--Southern Africa Button-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 7px 66px;
+        display: inline-block;
+        margin: 807px 240px;
+        cursor: pointer;
+        "type="button" name="region" />
+        
+          <!--Sub-Saharan Africa Button-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 7px 80px;
+        display: inline-block;
+        margin: 845px 103px;
+        cursor: pointer;
+        "type="button" name="region" />
+        
+        
+        <!--SUBMIT ARROW-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 7px 7px;
+        display: inline-block;
+        margin: 870px 487px;
+        cursor: pointer;
+        "type="button" name="region" />
+        
+        <!--upper filter box-->
+        <!--electricity tab-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color:transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        padding: 8px 105px;
+        display: inline-block;
+        margin: 250px 70px;
+        cursor: pointer;
+        "type="button" name="electricity" />
+        
+         <!--accessibility range  -->
+         <!--<input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="100" class="Accessslider" id="YearRange">-->
+        
+         <!--education tab-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color:transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        padding: 8px 100px;
+        display: inline-block;
+        margin: 250px 310px;
+        cursor: pointer;
+        "type="button" name="education" />
+        
+        <!--school level radio-->
+        <form>
+        <input class="radio" style="position:absolute; z-index:2; outline:none; 
+        margin: 356px 205px;
+        "type="radio" name="school" > 
+        <input class="radio" style="position:absolute; z-index:2; outline:none; 
+        margin: 356px 104px;
+        "type="radio" name="school" >
+        </form>
+          
+        <!--gender radio-->
+        
+        <input class="radio" style="position:absolute; z-index:2; outline:none; 
+        margin: 433px 104px;
+        "type="radio" name="gender" >
+        <input class="radio" style="position:absolute; z-index:2; outline:none; 
+        margin: 433px 205px;
+        "type="radio" name="gender" > 
+         <input class="radio" style="position:absolute; z-index:2; outline:none; 
+        margin: 433px 314px;
+        "type="radio" name="gender" >
+               
+        
+        
+        
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1921 1081.5">
+   <defs>
+      <style>
+      
+    .a{
+    fill:#0a141c;
+    }
+    .b{
+        fill:#091116;
+    }
+    .c,.d,.h,.u{
+        fill:#fff;
+    }
+    .c,.l{
+        font-size:9.4px;
+    }
+    .c,.d,.h,.k,.l,.u{
+        font-family:MiriamLibre-Regular, Miriam Libre;
+    }
+    .d{
+        font-size:48px;
+    }
+    .e,.j,.k,.l,.q,.s{
+        fill:#f93d3d;
+    }
+    .e,.j,.s{
+        font-family:MiriamLibre-Bold, Miriam Libre;
+        font-weight:700;
+    }
+    .f,.m,.t,.v{
+        fill:none;
+        stroke-miterlimit:10;
+    }
+    .f,.v{
+        stroke:#f93d3d;
+    }
+    .f{
+        stroke-width:2px;
+    }
+    .g,.o{
+        opacity:0.52;
+    }
+    .g{
+        fill:url(#a);
+    }
+    .h,.j,.k{
+        font-size:14.1px;
+    }
+    .i{
+        fill:url(#b);
+    }
+    .m,.t{
+        stroke:#fff;
+    }
+    .m{
+        stroke-width:0.5px;
+    }
+    .n{
+        fill:url(#c);
+    }
+    .o{
+        fill:url(#d);
+    }
+    .p{
+        fill:url(#e);
+    }
+    .r{
+        fill:url(#f);
+    }
+    .s{
+        font-size:60px;
+    }
+    .u{
+        font-size:12px;
+    }
+    .w{
+        fill:url(#g);
+    }
+
+</style>
+         
+      <!--education tab-->
+      <linearGradient id="a" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">
+         <stop offset="0" stop-color="#00040c"/>
+         <stop offset="0.324" stop-color="#03070f" stop-opacity="0.839"/>
+         <stop offset="0.578" stop-color="#0c1119" stop-opacity="0.71"/>
+         <stop offset="0.807" stop-color="#1b2129" stop-opacity="0.596"/>
+         <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>
+      </linearGradient>
+      
+      <!--upper box electricity-->
+      <linearGradient id="b" x1="-0.023" y1="1.551" x2="1.095" y2="-0.695" gradientUnits="objectBoundingBox">
+         <stop offset="0" stop-color="#060e16"/>
+         <stop offset="0.355" stop-color="#091119" stop-opacity="0.824"/>
+         <stop offset="0.633" stop-color="#131b23" stop-opacity="0.682"/>
+         <stop offset="0.883" stop-color="#232b33" stop-opacity="0.557"/>
+         <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>
+      </linearGradient>
+      
+      <!--bottomBox-->
+      <linearGradient id="c" x1="0.054" y1="0.976" x2="1.312" y2="-0.367" xlink:href="#b"/>
+      
+      <!-- comment out to show upper box electricity-->
+      <linearGradient id="d" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">
+         <stop offset="0" stop-color="#2d353e" stop-opacity="0.502"/>
+         <stop offset="0.193" stop-color="#1b2129" stop-opacity="0.596"/>
+         <stop offset="0.422" stop-color="#0c1119" stop-opacity="0.71"/>
+         <stop offset="0.676" stop-color="#03070f" stop-opacity="0.839"/>
+         <stop offset="1" stop-color="#00040c"/>
+      </linearGradient>
+      <linearGradient id="e" x1="-0.007" y1="1.585" x2="1.115" y2="-0.671" xlink:href="#b"/>
+      
+      <linearGradient id="f" x1="0.959" y1="-0.108" x2="0.034" y2="1.116" xlink:href="#b"/>
+      <linearGradient id="g" x1="1.153" y1="0.238" x2="-0.162" y2="0.766" xlink:href="#b"/>
+   </defs>
+   
+   <rect class="a" width="1921" height="1080" transform="translate(0 0.5)"/>
+   <path class="b" d="M1332,1081.5l-1332-1V.5L376.5,0Z"/>
+   <text class="c" transform="translate(1711.068 999.111)">
+      <tspan x="0" y="0">COPYRIGHTS | DATA SOURCE</tspan>
+   </text>
+   <text class="d" transform="translate(71.703 105.082)">
+      <tspan x="0" y="0">How does access to</tspan>
+      <tspan class="e" y="0" xml:space="preserve"> [</tspan>
+      <tspan y="0">electricity</tspan>
+      <tspan class="e" y="0">] </tspan>
+      <tspan x="0" y="59">affect </tspan>
+      <tspan class="e" y="59">[</tspan>
+      <tspan y="59">education</tspan>
+      <tspan class="e" y="59">]</tspan>
+      <tspan y="59" xml:space="preserve"> in Africa?</tspan>
+   </text>
+   
+   <!--left arrow-->
+    <path class="f" d="M40,599.9l-8.6-8.6,8.6-8.7"/>
+   <!--white-->
+   <!--<path class="g" d="M608.7,262.2l-254,.2H76V227.6H578Z"/>-->
+   <!--<text class="h" transform="translate(431.623 251.854)">-->
+   <!--   <tspan x="0" y="0">EDUCATION</tspan>-->
+   <!--</text>-->
+   
+   <!--red-->
+   <!--<path class="i" d="M355.6,262.2H609V492.8H76.1V227.6H324.9Z"/>-->
+   <!--<text class="j" transform="translate(165.131 251.854)">-->
+   <!--   <tspan x="0" y="0">ELECTRICITY</tspan>-->
+   <!--</text>-->
+   
+   <!--<text class="k" transform="translate(120.131 355.469)">-->
+   <!--   <tspan x="0" y="0">Level of Accessibility</tspan>-->
+   <!--</text>-->
+   
+   <!--<text class="l" transform="translate(118.875 427.016)">-->
+   <!--   <tspan x="0" y="0">0</tspan>-->
+   <!--</text>-->
+   <!--<text class="l" transform="translate(550.684 387.305)">-->
+   <!--   <tspan x="0" y="0">%</tspan>-->
+   <!--</text>-->
+   <!--<text class="l" transform="translate(545.197 427.014)">-->
+   <!--   <tspan x="0" y="0">100</tspan>-->
+   <!--</text>-->
+   
+   <!--accessibility lines-->
+   <!--<line class="m" x2="439.3" transform="translate(120.1 406.6)"/>-->
+   <!--<line class="m" y2="9.3" transform="translate(120.1 402.2)"/>-->
+   <!--<line class="m" y2="9.3" transform="translate(559.9 402.2)"/>-->
+   
+   
+   <path class="n" d="M609,997.5H117l-41-41v-458H609Z"/>
+   <path class="f" d="M109.5,584.6l8.7,8.7-8.7,8.6"/>
+   <text class="k" transform="translate(119.611 536.498)">
+      <tspan x="0" y="0">YEAR</tspan>
+   </text>
+   <text class="k" transform="translate(119.611 674.644)">
+      <tspan x="0" y="0">COUNTRY</tspan>
+   </text>
+   <path class="m" d="M118.4,699.6H309.3l9.4,9.4v25.3l-190.9-.1-9.4-9.4V699.6Z"/>
+   
+   <text class="c" transform="translate(122.804 604.906) rotate(-90)">
+      <tspan x="0" y="0">2000</tspan>
+   </text>
+   <text class="c" transform="translate(560.947 604.906) rotate(-90)">
+      <tspan x="0" y="0">2016</tspan>
+   </text>
+   
+   <!--Years lines -->
+   <line class="m" y2="8.7" transform="translate(119.6 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(148.9 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(178.2 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(207.5 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(236.8 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(266 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(295.3 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(324.6 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(353.9 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(383.2 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(412.5 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(441.8 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(471 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(500.3 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(529.6 565.9)"/>
+   <line class="m" y2="8.7" transform="translate(558.9 565.9)"/>
+
+   <text class="k" transform="translate(119.611 795.783)">
+      <tspan x="0" y="0">REGION</tspan>
+   </text>
+   <path class="m" d="M118.4,821.9H243.5l9.4,9.4v25.3l-125.1-.1-9.4-9.4V821.9Z"/>
+   <path class="m" d="M259.7,821.9h111l9.4,9.4v25.3l-111-.1-9.4-9.4Z"/>
+   <text class="h" transform="translate(134.426 844.479)">
+      <tspan x="0" y="0">NORTH AFRICA</tspan>
+   </text>
+   <path class="m" d="M118.4,864.2H257.6l9.4,9.4v25.3l-139.2-.1-9.4-9.4Z"/>
+   <text class="h" transform="translate(138.426 886.766)">
+      <tspan x="0" y="0">CENTRAL AFRICA</tspan>
+   </text>
+   <path class="m" d="M118.4,906.5H295.2l9.4,9.4v25.3l-176.8-.1-9.4-9.4Z"/>
+   <text class="h" transform="translate(138.426 929.053)">
+      <tspan x="0" y="0">SUB-SAHARAN AFRICA</tspan>
+   </text>
+   <path class="m" d="M273,864.2H421.6l9.4,9.4v25.3l-148.6-.1-9.4-9.4Z"/>
+   <text class="h" transform="translate(291.095 886.766)">
+      <tspan x="0" y="0">SOUTHERN AFRICA</tspan>
+   </text>
+   <text class="h" transform="translate(276.025 844.479)">
+      <tspan x="0" y="0">WEST AFRICA</tspan>
+   </text>
+   <path class="m" d="M386.7,821.9h111l9.4,9.4v25.3l-111-.1-9.4-9.4Z"/>
+   <text class="h" transform="translate(406.025 844.479)">
+      <tspan x="0" y="0">EAST AFRICA</tspan>
+   </text>
+   <path class="f" d="M563.4,944.6l8.7,8.7-8.7,8.6"/>
+   <path class="o" d="M608.7,262.2l-507,.2H76V227.6H578Z"/>
+   <path class="p" d="M608.6,262.2l-30.7-34.6H325l30.7,34.6-254,.2H76.1V492.8H609V262.2Z"/>
+   <text class="k" transform="translate(121.131 410.469)">
+      <tspan x="0" y="0">GENDER</tspan>
+   </text>
+   <text class="h" transform="translate(257.945 445.478)">
+      <tspan x="0" y="0">FEMALE</tspan>
+   </text>
+   <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(238 435.5)"/>-->
+   <text class="h" transform="translate(382.445 445.978)">
+      <tspan x="0" y="0">BOTH</tspan>
+   </text>
+   <!--<circle class="q" cx="5" cy="5" r="5" transform="translate(362.5 436)"/>-->
+   <text class="h" transform="translate(141.445 445.978)">
+      <tspan x="0" y="0">MALE</tspan>
+   </text>
+   <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(121.5 436)"/>-->
+   <text class="k" transform="translate(121.131 322.469)">
+      <tspan x="0" y="0">SCHOOL LEVEL</tspan>
+   </text>
+   <text class="h" transform="translate(257.945 357.478)">
+      <tspan x="0" y="0">SECONDARY</tspan>
+   </text>
+   <!--<circle class="q" cx="5" cy="5" r="5" transform="translate(238 347.5)"/>-->
+   <text class="h" transform="translate(141.445 357.978)">
+      <tspan x="0" y="0">PRIMARY</tspan>
+   </text>
+   <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(121.5 348)"/>-->
+   
+   <!--white-->
+   <text class="h" transform="translate(165.131 251.854)">
+      <tspan x="0" y="0">ELECTRICITY</tspan>
+   </text>
+   
+   <!--red-->
+   <text class="j" transform="translate(431.623 251.854)">
+      <tspan x="0" y="0">EDUCATION</tspan>
+   </text>
+   
+   <!--<path class="r" d="M1840,997.5H117l-41-41v-729H1799l41,41Z"/>-->
+   <!--<text class="s" transform="translate(126.354 342.115)">-->
+   <!--   <tspan x="0" y="0">CONGO</tspan>-->
+   <!--</text>-->
+   <!--<path class="f" d="M1771,269.8l8.6,8.6L1771,287"/>-->
+   <!--<path class="f" d="M1788.2,287l-8.6-8.6,8.6-8.6"/>-->
+   <!--<line class="t" x1="0.4" y2="639" transform="translate(611.5 298.5)"/>-->
+   <!--<line class="f" x1="21" transform="translate(1729.5 278)"/>-->
+   <!--<text class="u" transform="translate(138.206 388.298)">-->
+   <!--   <tspan x="0" y="0">CENTRAL AFRICA</tspan>-->
+   <!--</text>-->
+   <!--<text class="u" transform="translate(255.411 388.298)">-->
+   <!--   <tspan x="0" y="0">2006</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M136,396h-6.5V373H136"/>-->
+   <!--<path class="v" d="M233,373h6.5v23H233"/>-->
+   <!--<text class="u" transform="translate(364.206 388.298)">-->
+   <!--   <tspan x="0" y="0">SECONDARY SCHOOL</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M361,396h-6.5V373H361"/>-->
+   <!--<path class="v" d="M478,373h6.5v23H478"/>-->
+   <!--<path class="v" d="M254,396h-6.5V373H254"/>-->
+   <!--<path class="v" d="M285,373h6.5v23H285"/>-->
+   <!--<text class="u" transform="translate(310.411 388.298)">-->
+   <!--   <tspan x="0" y="0">2010</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M306,396h-6.5V373H306"/>-->
+   <!--<path class="v" d="M340,373h6.5v23H340"/>-->
+   <!--<text class="u" transform="translate(501.411 388.298)">-->
+   <!--   <tspan x="0" y="0">BOTH</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M499,396h-6.5V373H499"/>-->
+   <!--<path class="v" d="M535,373h6.5v23H535"/>-->
+   <!--<path class="w" d="M612,997.5H117l-41-41v-729H571l41,41Z"/>-->
+   <!--<text class="s" transform="translate(126.354 342.115)">-->
+   <!--   <tspan x="0" y="0">CONGO</tspan>-->
+   <!--</text>-->
+   <!--<text class="u" transform="translate(138.206 388.298)">-->
+   <!--   <tspan x="0" y="0">CENTRAL AFRICA</tspan>-->
+   <!--</text>-->
+   <!--<text class="u" transform="translate(255.411 388.298)">-->
+   <!--   <tspan x="0" y="0">2006</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M136,396h-6.5V373H136"/>-->
+   <!--<path class="v" d="M233,373h6.5v23H233"/>-->
+   <!--<text class="u" transform="translate(364.206 388.298)">-->
+   <!--   <tspan x="0" y="0">SECONDARY SCHOOL</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M361,396h-6.5V373H361"/>-->
+   <!--<path class="v" d="M478,373h6.5v23H478"/>-->
+   <!--<path class="v" d="M254,396h-6.5V373H254"/>-->
+   <!--<path class="v" d="M285,373h6.5v23H285"/>-->
+   <!--<text class="u" transform="translate(310.411 388.298)">-->
+   <!--   <tspan x="0" y="0">2010</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M306,396h-6.5V373H306"/>-->
+   <!--<path class="v" d="M340,373h6.5v23H340"/>-->
+   <!--<text class="u" transform="translate(501.411 388.298)">-->
+   <!--   <tspan x="0" y="0">BOTH</tspan>-->
+   <!--</text>-->
+   <!--<path class="v" d="M499,396h-6.5V373H499"/>-->
+   <!--<path class="v" d="M535,373h6.5v23H535"/>-->
+   <!--<path class="f" d="M542,269.8l8.6,8.6L542,287"/>-->
+   <!--<path class="f" d="M559.2,287l-8.6-8.6,8.6-8.6"/>-->
+</svg>
     <div id="map"></div>
      
 </body>
