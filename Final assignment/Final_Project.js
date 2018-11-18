@@ -1,4 +1,4 @@
-  d3.json('data/africa.geo.json').then((geojson) => {
+  d3.json('../data/africa.geo.json').then((geojson) => {
 
             // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
             mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
@@ -70,4 +70,7 @@
                 let point = map.project(new mapboxgl.LngLat(lon, lat));
         		this.stream.point(point.x, point.y);
         	}
+        	
         });
+   
+         
