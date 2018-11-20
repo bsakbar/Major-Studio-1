@@ -1,4 +1,4 @@
-  d3.json('../data/africa.geo.json').then((geojson) => {
+  d3.json('data/africa.geo.json').then((geojson) => {
 
             // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
             mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
@@ -74,23 +74,23 @@
         });
 
   var electricity_data = [];
-  d3.csv("../data/access_electricity_data.csv", function(data) {
+  d3.csv("data/access_electricity_data.csv", function(data) {
       electricity_data.push(data)
   });
   var primary_education = [];
-  d3.csv("../data/Primary_Countries.csv", function(data) {
+  d3.csv("data/Primary_Countries.csv", function(data) {
       primary_education.push(data)
   });
   var secondary_education = [];
-  d3.csv("../data/Secondary_Countries.csv", function(data) {
+  d3.csv("data/Secondary_Countries.csv", function(data) {
       secondary_education.push(data)
   });
   var population = [];
-  d3.csv("../data/Population.csv", function(data) {
+  d3.csv("data/Population.csv", function(data) {
       population.push(data)
   });
   var landarea = [];
-  d3.csv("../data/Land_Area.csv", function(data) {
+  d3.csv("data/Land_Area.csv", function(data) {
       landarea.push(data)
   });
    
@@ -250,7 +250,7 @@
     // d="M1367.2,485.2v18l13,13h193v-18l-13,-13Z"
     
     var elements = document.getElementsByClassName("country-svg");
-    elements['country-map'].src="../SVG/"+country_electricity["Country_Name"]+".svg"
+    elements['country-map'].src="SVG/"+country_electricity["Country_Name"]+".svg"
     
     for (let i=0; i<elements.length; i++){
       elements[i].style.display = "block"
