@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    
+    <link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
     <title>Final Assignment</title>
     
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -10,28 +10,29 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
   
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet'/>
-
+     <!--<link rel="import" href="svg_country_details.html">-->
    <style>
         body {
             width:1920px;
             height: 1080px;
         	padding: 0px;
         	margin: 0px;
-        	background-color: #0a141c;
+        	background-color:#091116;
             overflow: hidden;
         }
         #map {
-          position:fixed;
-          width: 100%;
-          height: 100%;
-          margin: auto auto;
+            position:fixed;
+            width: 100%;
+            height: 100%;
+            margin: auto auto;
+            display: block;
         }
         svg {
             width:1920px;
             height: 1080px;
-          position: absolute;
-          width: 100%;
-          height: 100%;
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
         .hidden {
         	display: none;
@@ -42,9 +43,8 @@
             font-family: 'Miriam Libre', sans-serif;
             font-weight:400;
         }
-        .Timeslider {
+        .Timeslider,.Timeslider_2{
             -webkit-appearance: none;
-            margin: 550px 103px;
             padding: 0px 0px;
             width: 388px;
             height: 0.5px;
@@ -57,7 +57,7 @@
             cursor: pointer;
         }
 
-        .Timeslider::-webkit-slider-thumb {
+        .Timeslider::-webkit-slider-thumb,.Timeslider_2::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 3px;
@@ -67,13 +67,20 @@
             cursor: pointer;
         }
         
-        .Timeslider::-moz-range-thumb {
+        .Timeslider::-moz-range-thumb,.Timeslider_2::-moz-range-thumb {
             width: 1px;
             height: 18px;
             border-radius: none;
             background: #f93d3d;
             cursor: pointer;
         }   
+        .Timeslider{
+            margin: 550px 103px;
+        }
+        .Timeslider_2{
+            margin: 568px 103px;
+        }
+        
           
        .Accessslider {
             -webkit-appearance: none;
@@ -133,18 +140,38 @@
              color: #f93d3d;
              outline: 3px #f93d3d;
         }
-        
+        .electricity-tab{
+            display: block;
+        }
+        .education-tab{
+            display: none;
+        }
+        .right-arrow-click{
+            display: none;
+        }
+        .right-arrow{
+            display: block;
+        }
+        .country-svg{
+            display: none;
+        }
+        .country_3d{
+            width: 11%;
+            margin: 421px 660px;
+        }
         
     </style>
 </head>
 
 <body>
     
-
     
+
+    <div class="right-arrow-click">
     <!--bottom filter box-->
         <!--Year range  -->
-         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider" id="YearRange">
+         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider" value="6" id="YearRange1">
+         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider_2" value="10" id="YearRange2">
 
    <!--<input " margin-top: 10px;margin-left:10px"; type="button" value="test" onclick="myFunction()"/>-->
         <input style="position:absolute; z-index:2; outline:none; 
@@ -158,7 +185,7 @@
         color: #f93d3d;
         width: 200px;
         margin: 662px 110px;
-        padding: 10px 10px;" type="text" name="country" placeholder="Enter Country" />
+        padding: 10px 10px;" type="text" id="country_textbox" placeholder="Enter Country" />
         <!--width: 150px;-->
         <!--padding: 15px 70px 772.483px 120.495px;-->
         
@@ -259,21 +286,6 @@
         "type="button" name="region" />
         
         
-        <!--SUBMIT ARROW-->
-        <input style="position:absolute; z-index:2; outline:none; 
-        -webkit-box-shadow: 0px 0px 0px;
-        box-shadow: 0px 0px 0px;
-        font-family: 'Miriam Libre', sans-serif;
-        background-color: transparent;
-        border: none;
-        border-radius: 0;
-        -webkit-appearance: none;
-        color: #f93d3d;
-        padding: 7px 7px;
-        display: inline-block;
-        margin: 870px 487px;
-        cursor: pointer;
-        "type="button" name="region" />
         
         <!--upper filter box-->
         <!--electricity tab-->
@@ -289,10 +301,10 @@
         display: inline-block;
         margin: 250px 70px;
         cursor: pointer;
-        "type="button" name="electricity" />
+        "type="button" name="electricity" onclick="electricity_tab()"/>
         
          <!--accessibility range  -->
-         <!--<input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="100" class="Accessslider" id="YearRange">-->
+         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="10" class="Accessslider electricity-tab" id="YearRange">
         
          <!--education tab-->
         <input style="position:absolute; z-index:2; outline:none; 
@@ -307,32 +319,114 @@
         display: inline-block;
         margin: 250px 310px;
         cursor: pointer;
-        "type="button" name="education" />
+        "type="button" name="education" onclick="education_tab()" />
         
-        <!--school level radio-->
-        <form>
-        <input class="radio" style="position:absolute; z-index:2; outline:none; 
-        margin: 356px 205px;
-        "type="radio" name="school" > 
-        <input class="radio" style="position:absolute; z-index:2; outline:none; 
-        margin: 356px 104px;
-        "type="radio" name="school" >
-        </form>
-          
-        <!--gender radio-->
+            
+        <div class = "education-tab">
+            
+            <!--school level radio-->
+            <input class="radio" style="position:absolute; z-index:2; outline:none; 
+            margin: 356px 205px;
+            "type="radio" name="school" value="SECONDARY"> 
+            <input class="radio" style="position:absolute; z-index:2; outline:none; 
+            margin: 356px 104px;
+            "type="radio" name="school" value="PRIMARY">
+            
+              
+            <!--gender radio-->
+            <input class="radio" style="position:absolute; z-index:2; outline:none; 
+            margin: 433px 104px;
+            "type="radio" name="gender" value="male">
+            <input class="radio" style="position:absolute; z-index:2; outline:none; 
+            margin: 433px 205px;
+            "type="radio" name="gender" value="female"> 
+             <input class="radio" style="position:absolute; z-index:2; outline:none; 
+            margin: 433px 314px;
+            "type="radio" name="gender" value="both">
+            
+        </div>
         
-        <input class="radio" style="position:absolute; z-index:2; outline:none; 
-        margin: 433px 104px;
-        "type="radio" name="gender" >
-        <input class="radio" style="position:absolute; z-index:2; outline:none; 
-        margin: 433px 205px;
-        "type="radio" name="gender" > 
-         <input class="radio" style="position:absolute; z-index:2; outline:none; 
-        margin: 433px 314px;
-        "type="radio" name="gender" >
-               
+        <!--LEFT ARROW-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 7px 7px;
+        display: inline-block;
+        margin: 557px 22px;
+        cursor: pointer;
+        "type="button" name="leftarrow" onclick="left_arrow()" />
         
+        <!--SUBMIT ARROW-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: #f93d3d;
+        border-radius: 0;
+        -webkit-appearance: none;
+        <!--color: #f93d3d;-->
+        padding: 7px 7px;
+        display: inline-block;
+        margin: 870px 487px;
+        cursor: pointer;
+        "type="button" name="submitarrow" onclick="submit_arrow()" /> 
+       </div> 
+       
+       <!--RIGHT ARROW-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 7px 7px;
+        display: inline-block;
+        margin: 557px 92px;
+        cursor: pointer;
+        "type="button" name="rightarrow" class="right-arrow" onclick="right_arrow()" />
         
+       
+       <!--close button for country details-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 6px 12px;
+        display: none;
+        margin: 281px 1542px;
+        cursor: pointer;
+        "type="button" name="closebutton" class="country-svg" onclick="close_button()"/>
+        
+        <!--minimize country details-->
+        <input style="position:absolute; z-index:2; outline:none; 
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        font-family: 'Miriam Libre', sans-serif;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #f93d3d;
+        padding: 6px 12px;
+        display: none;
+        margin: 281px 1509px;
+        cursor: pointer;
+        "type="button" name="closebutton" class="country-svg"/>
         
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1921 1081.5">
@@ -355,7 +449,7 @@
         font-family:MiriamLibre-Regular, Miriam Libre;
     }
     .d{
-        font-size:48px;
+        font-size:42px;
     }
     .e,.j,.k,.l,.q,.s{
         fill:#f93d3d;
@@ -415,260 +509,479 @@
     }
 
 </style>
-         
-      <!--education tab-->
-      <linearGradient id="a" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">
-         <stop offset="0" stop-color="#00040c"/>
-         <stop offset="0.324" stop-color="#03070f" stop-opacity="0.839"/>
-         <stop offset="0.578" stop-color="#0c1119" stop-opacity="0.71"/>
-         <stop offset="0.807" stop-color="#1b2129" stop-opacity="0.596"/>
-         <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>
-      </linearGradient>
-      
-      <!--upper box electricity-->
-      <linearGradient id="b" x1="-0.023" y1="1.551" x2="1.095" y2="-0.695" gradientUnits="objectBoundingBox">
+</defs>
+    <g class="right-arrow-click">
+          <!--unknown-->
+          <!--<linearGradient id="a" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">-->
+          <!--   <stop offset="0" stop-color="#00040c"/>-->
+          <!--   <stop offset="0.324" stop-color="#03070f" stop-opacity="0.839"/>-->
+          <!--   <stop offset="0.578" stop-color="#0c1119" stop-opacity="0.71"/>-->
+          <!--   <stop offset="0.807" stop-color="#1b2129" stop-opacity="0.596"/>-->
+          <!--   <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>-->
+          <!--</linearGradient>-->
+          
+          <!--upper box electricity-->
+          <g class="electricity-tab">
+          <linearGradient id="b" x1="-0.023" y1="1.551" x2="1.095" y2="-0.695" gradientUnits="objectBoundingBox">
+             <stop offset="0" stop-color="#060e16"/>
+             <stop offset="0.355" stop-color="#091119" stop-opacity="0.824"/>
+             <stop offset="0.633" stop-color="#131b23" stop-opacity="0.682"/>
+             <stop offset="0.883" stop-color="#232b33" stop-opacity="0.557"/>
+             <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>
+          </linearGradient>
+          </g>
+          
+          <!--bottomBox-->
+          <linearGradient id="c" x1="0.054" y1="0.976" x2="1.312" y2="-0.367" xlink:href="#b"/>
+          
+          <g class="education-tab">
+              <!-- education tab-->
+              <linearGradient id="d" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">
+                 <stop offset="0" stop-color="#2d353e" stop-opacity="0.502"/>
+                 <stop offset="0.193" stop-color="#1b2129" stop-opacity="0.596"/>
+                 <stop offset="0.422" stop-color="#0c1119" stop-opacity="0.71"/>
+                 <stop offset="0.676" stop-color="#03070f" stop-opacity="0.839"/>
+                 <stop offset="1" stop-color="#00040c"/>
+              </linearGradient>
+            </g>
+              <!--education box-->
+            <linearGradient id="e" x1="-0.007" y1="1.585" x2="1.115" y2="-0.671" xlink:href="#b" class="education-tab"/>
+          
+          <linearGradient id="f" x1="0.959" y1="-0.108" x2="0.034" y2="1.116" xlink:href="#b"/>
+          <linearGradient id="g" x1="1.153" y1="0.238" x2="-0.162" y2="0.766" xlink:href="#b"/>
+        <!--</defs> closing tag was here-->
+    </g>
+    <rect class="a" width="1921" height="1080" transform="translate(0 0.5)"/>
+    <path class="b" d="M1332,1081.5l-1332-1V.5L376.5,0Z"/>
+    <text class="c" transform="translate(1711.068 999.111)">
+        <tspan x="0" y="0">COPYRIGHTS | DATA SOURCE</tspan>
+    </text>
+    <text class="d" transform="translate(71.703 105.082)">
+      <tspan x="0" y="0">How does access to</tspan>
+      <tspan class="e" y="0" xml:space="preserve"> [</tspan>
+      <tspan y="0">electricity</tspan>
+      <tspan class="e" y="0">] </tspan>
+      <tspan x="0" y="50">affect </tspan>
+      <tspan class="e" y="50">[</tspan>
+      <tspan y="50">education</tspan>
+      <tspan class="e" y="50">]</tspan>
+      <tspan y="50" xml:space="preserve"> in Africa?</tspan>
+    </text>
+    
+    <g class="right-arrow-click">
+        <!--left arrow-->
+        <path class="f" d="M40,599.9l-8.6-8.6,8.6-8.7"/>
+        
+        <g class="electricity-tab">
+           <!--white-->
+           <path class="g" d="M608.7,262.2l-254,.2H76V227.6H578Z"/>
+           <text class="h" transform="translate(431.623 251.854)">
+              <tspan x="0" y="0">EDUCATION</tspan>
+           </text>
+           
+           <!--red-->
+           <path class="i" d="M355.6,262.2H609V492.8H76.1V227.6H324.9Z"/>
+           <text class="j" transform="translate(165.131 251.854)">
+              <tspan x="0" y="0">ELECTRICITY</tspan>
+           </text>
+       
+           <text class="k" transform="translate(120.131 355.469)">
+              <tspan x="0" y="0">LEVEL OF ACCESSIBILITY</tspan>
+           </text>
+           
+           <text class="l" transform="translate(118.875 427.016)">
+              <tspan x="0" y="0">0</tspan>
+           </text>
+           <text class="l" transform="translate(550.684 387.305)">
+              <tspan x="0" y="0">%</tspan>
+           </text>
+           <text class="l" transform="translate(545.197 427.014)">
+              <tspan x="0" y="0">100</tspan>
+           </text>
+           
+           <!--accessibility lines-->
+           <!--<line class="m" x2="439.3" transform="translate(120.1 406.6)"/>-->
+           <!--<line class="m" y2="9.3" transform="translate(120.1 402.2)"/>-->
+           <!--<line class="m" y2="9.3" transform="translate(559.9 402.2)"/>-->
+        <line class="m" y2="8.7" transform="translate(119.6 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(163.53 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(207.46 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(251.39 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(295.32 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(339.25 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(383.18 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(427.11 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(471.04 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(514.97 402.2)"/>
+       <line class="m" y2="8.7" transform="translate(558.9 402.2)"/>
+       <!--<line class="m" y2="8.7" transform="translate(412.5 402.2)"/>-->
+       <!--<line class="m" y2="8.7" transform="translate(441.8 402.2)"/>-->
+       <!--<line class="m" y2="8.7" transform="translate(471 402.2)"/>-->
+       <!--<line class="m" y2="8.7" transform="translate(500.3 402.2)"/>-->
+       <!--<line class="m" y2="8.7" transform="translate(529.6 402.2)"/>-->
+       <!--<line class="m" y2="8.7" transform="translate(558.9 402.2)"/>-->
+       </g>
+       
+       <path class="n" d="M609,997.5H117l-41-41v-458H609Z"/>
+   </g>
+   
+   <!--right arrow-->
+   <path class="f right-arrow" d="M109.5,584.6l8.7,8.7-8.7,8.6"/>
+   
+   <g class="right-arrow-click">  
+       <text class="k" transform="translate(119.611 536.498)">
+          <tspan x="0" y="0">YEAR</tspan>
+       </text>
+       <text class="k" transform="translate(119.611 674.644)">
+          <tspan x="0" y="0">COUNTRY</tspan>
+       </text>
+       <path class="m" d="M118.4,699.6H309.3l9.4,9.4v25.3l-190.9-.1-9.4-9.4V699.6Z"/>
+       
+       <text class="c" transform="translate(122.804 624.906) rotate(-90)">
+          <tspan x="0" y="0">2000</tspan>
+       </text>
+       <text class="c" transform="translate(560.947 624.906) rotate(-90)">
+          <tspan x="0" y="0">2016</tspan>
+       </text>
+       
+       <!--Years lines -->
+       <line class="m" x2="439.3" transform="translate(120.1 569.9)"/>
+    
+        <line class="m" x2="439.3" transform="translate(120.1 589.9)"/>
+        <line class="m" y2="28.3" transform="translate(120.1 565.9)"/>
+       <line class="m" y2="28.3" transform="translate(559.9 565.9)"/>
+       
+       <text class="k" transform="translate(119.611 795.783)">
+          <tspan x="0" y="0">REGION</tspan>
+       </text>
+       <path class="m" d="M118.4,821.9H243.5l9.4,9.4v25.3l-125.1-.1-9.4-9.4V821.9Z"/>
+       <path class="m" d="M259.7,821.9h111l9.4,9.4v25.3l-111-.1-9.4-9.4Z"/>
+       <text class="h" transform="translate(134.426 844.479)">
+          <tspan x="0" y="0">NORTH AFRICA</tspan>
+       </text>
+       <path class="m" d="M118.4,864.2H257.6l9.4,9.4v25.3l-139.2-.1-9.4-9.4Z"/>
+       <text class="h" transform="translate(138.426 886.766)">
+          <tspan x="0" y="0">CENTRAL AFRICA</tspan>
+       </text>
+       <path class="m" d="M118.4,906.5H295.2l9.4,9.4v25.3l-176.8-.1-9.4-9.4Z"/>
+       <text class="h" transform="translate(138.426 929.053)">
+          <tspan x="0" y="0">SUB-SAHARAN AFRICA</tspan>
+       </text>
+       <path class="m" d="M273,864.2H421.6l9.4,9.4v25.3l-148.6-.1-9.4-9.4Z"/>
+       <text class="h" transform="translate(291.095 886.766)">
+          <tspan x="0" y="0">SOUTHERN AFRICA</tspan>
+       </text>
+       <text class="h" transform="translate(276.025 844.479)">
+          <tspan x="0" y="0">WEST AFRICA</tspan>
+       </text>
+       <path class="m" d="M386.7,821.9h111l9.4,9.4v25.3l-111-.1-9.4-9.4Z"/>
+       <text class="h" transform="translate(406.025 844.479)">
+          <tspan x="0" y="0">EAST AFRICA</tspan>
+       </text>
+       <path class="f" d="M563.4,944.6l8.7,8.7-8.7,8.6"/>
+       <!--<path class="o" d="M608.7,262.2l-507,.2H76V227.6H578Z"/>-->
+       <path class="p" d="M608.6,262.2l-30.7-34.6H325l30.7,34.6-254,.2H76.1V492.8H609V262.2Z"/>
+       
+       <g class="education-tab">
+           <text class="k" transform="translate(121.131 410.469)">
+              <tspan x="0" y="0" >GENDER</tspan>
+           </text>
+           <text class="h" transform="translate(257.945 445.478)">
+              <tspan x="0" y="0" >FEMALE</tspan>
+           </text>
+           <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(238 435.5)"/>-->
+           <text class="h" transform="translate(382.445 445.978)">
+              <tspan x="0" y="0">BOTH</tspan>
+           </text>
+           <!--<circle class="q" cx="5" cy="5" r="5" transform="translate(362.5 436)"/>-->
+           <text class="h" transform="translate(141.445 445.978)">
+              <tspan x="0" y="0">MALE</tspan>
+           </text>
+           <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(121.5 436)"/>-->
+           <text class="k" transform="translate(121.131 322.469)">
+              <tspan x="0" y="0">SCHOOL LEVEL</tspan>
+           </text>
+           <text class="h" transform="translate(257.945 357.478)">
+              <tspan x="0" y="0">SECONDARY</tspan>
+           </text>
+           <!--<circle class="q" cx="5" cy="5" r="5" transform="translate(238 347.5)"/>-->
+           <text class="h" transform="translate(141.445 357.978)">
+              <tspan x="0" y="0">PRIMARY</tspan>
+           </text>
+           <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(121.5 348)"/>-->
+           
+           <!--white-->
+           <text class="h" transform="translate(165.131 251.854)">
+              <tspan x="0" y="0">ELECTRICITY</tspan>
+           </text>
+           
+           <!--red-->
+           <text class="j" transform="translate(431.623 251.854)">
+              <tspan x="0" y="0">EDUCATION</tspan>
+           </text>
+       </g>
+   </g>
+     <img src="../SVG/Algeria.svg" style="position:absolute; z-index:2; outline:none;" id="country-map" class="country_3d country-svg">
+</svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1922 1081" class="country-svg">
+   <defs>
+      <style>
+            .a2,.ab2,.ad2,.f2,.g2,.i2,.o2,.q2,.x2,.y2,.z2{
+                fill:none;
+            }
+            .a2{
+                stroke:#707070;
+            }
+            .b2{
+                fill:url(#a);
+            }
+            .ac2,.c2,.d2,.e2,.h2,.k2,.l2,.p2,.s2,.w2{
+                fill:#fff;
+            }
+            .c2,.d2{
+                font-size:36px;
+            }
+            .aa2,.c2,.k2,.l2,.n2,.r2,.t2,.u2,.v2{
+                font-family:MiriamLibre-Bold, Miriam Libre;
+                font-weight:700;
+            }
+            .ac2,.d2,.e2,.h2,.j2,.m2,.p2,.s2,.w2{
+                font-family:MiriamLibre-Regular, Miriam Libre;
+            }
+            .e2,.k2,.r2{
+                font-size:18px;
+            }
+            .f2,.i2,.o2{
+                stroke:#fff;
+            }
+            .ab2,.ad2,.f2,.i2,.o2,.q2,.x2,.y2,.z2{
+                stroke-miterlimit:10;
+            }
+            .h2{
+                font-size:22px;
+            }
+            .ab2,.i2{
+                stroke-width:2px;
+            }
+            .aa2,.j2,.r2,.t2{
+                fill:#f93d3d;
+            }
+            .j2,.s2{
+                font-size:14.1px;
+            }
+            .l2,.p2{
+                font-size:14px;
+            }
+            .m2{
+                font-weight:400;
+            }
+            .o2{
+                stroke-width:0.5px;
+            }
+            .ab2,.ad2,.q2,.x2{
+                stroke:#f93d3d;
+            }
+            .q2{
+                opacity:0.9;
+            }
+            .t2,.u2,.v2{
+                font-size:23.437px;
+            }
+            .u2{
+                fill:#d35757;
+            }
+            .v2{
+                fill:#db948d;
+            }
+            .w2{
+                font-size:11.719px;
+            }
+            .x2,.y2,.z2{
+                stroke-width:10px;
+            }
+            .y2{
+                stroke:#d35757;
+            }
+            .z2{
+                stroke:#d87f73;
+            }
+            .aa2{
+                font-size:60px;
+            }
+            .ac2{
+                font-size:12px;
+            }
+            .km{
+                font-family:MiriamLibre-Regular, Miriam Libre;
+                font-size:24px;
+                fill:#fff;
+            }
+    </style>
+      <linearGradient id="a" x1="0.959" y1="-0.108" x2="0.034" y2="1.116" gradientUnits="objectBoundingBox">
          <stop offset="0" stop-color="#060e16"/>
          <stop offset="0.355" stop-color="#091119" stop-opacity="0.824"/>
          <stop offset="0.633" stop-color="#131b23" stop-opacity="0.682"/>
          <stop offset="0.883" stop-color="#232b33" stop-opacity="0.557"/>
          <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>
       </linearGradient>
-      
-      <!--bottomBox-->
-      <linearGradient id="c" x1="0.054" y1="0.976" x2="1.312" y2="-0.367" xlink:href="#b"/>
-      
-      <!-- comment out to show upper box electricity-->
-      <linearGradient id="d" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">
-         <stop offset="0" stop-color="#2d353e" stop-opacity="0.502"/>
-         <stop offset="0.193" stop-color="#1b2129" stop-opacity="0.596"/>
-         <stop offset="0.422" stop-color="#0c1119" stop-opacity="0.71"/>
-         <stop offset="0.676" stop-color="#03070f" stop-opacity="0.839"/>
-         <stop offset="1" stop-color="#00040c"/>
-      </linearGradient>
-      <linearGradient id="e" x1="-0.007" y1="1.585" x2="1.115" y2="-0.671" xlink:href="#b"/>
-      
-      <linearGradient id="f" x1="0.959" y1="-0.108" x2="0.034" y2="1.116" xlink:href="#b"/>
-      <linearGradient id="g" x1="1.153" y1="0.238" x2="-0.162" y2="0.766" xlink:href="#b"/>
    </defs>
+   <g transform="translate(0.5 0.5)">
+       
+ 
    
-   <rect class="a" width="1921" height="1080" transform="translate(0 0.5)"/>
-   <path class="b" d="M1332,1081.5l-1332-1V.5L376.5,0Z"/>
-   <text class="c" transform="translate(1711.068 999.111)">
-      <tspan x="0" y="0">COPYRIGHTS | DATA SOURCE</tspan>
-   </text>
-   <text class="d" transform="translate(71.703 105.082)">
-      <tspan x="0" y="0">How does access to</tspan>
-      <tspan class="e" y="0" xml:space="preserve"> [</tspan>
-      <tspan y="0">electricity</tspan>
-      <tspan class="e" y="0">] </tspan>
-      <tspan x="0" y="59">affect </tspan>
-      <tspan class="e" y="59">[</tspan>
-      <tspan y="59">education</tspan>
-      <tspan class="e" y="59">]</tspan>
-      <tspan y="59" xml:space="preserve"> in Africa?</tspan>
-   </text>
-   
-   <!--left arrow-->
-    <path class="f" d="M40,599.9l-8.6-8.6,8.6-8.7"/>
-   <!--white-->
-   <!--<path class="g" d="M608.7,262.2l-254,.2H76V227.6H578Z"/>-->
-   <!--<text class="h" transform="translate(431.623 251.854)">-->
-   <!--   <tspan x="0" y="0">EDUCATION</tspan>-->
-   <!--</text>-->
-   
-   <!--red-->
-   <!--<path class="i" d="M355.6,262.2H609V492.8H76.1V227.6H324.9Z"/>-->
-   <!--<text class="j" transform="translate(165.131 251.854)">-->
-   <!--   <tspan x="0" y="0">ELECTRICITY</tspan>-->
-   <!--</text>-->
-   
-   <!--<text class="k" transform="translate(120.131 355.469)">-->
-   <!--   <tspan x="0" y="0">Level of Accessibility</tspan>-->
-   <!--</text>-->
-   
-   <!--<text class="l" transform="translate(118.875 427.016)">-->
-   <!--   <tspan x="0" y="0">0</tspan>-->
-   <!--</text>-->
-   <!--<text class="l" transform="translate(550.684 387.305)">-->
-   <!--   <tspan x="0" y="0">%</tspan>-->
-   <!--</text>-->
-   <!--<text class="l" transform="translate(545.197 427.014)">-->
-   <!--   <tspan x="0" y="0">100</tspan>-->
-   <!--</text>-->
-   
-   <!--accessibility lines-->
-   <!--<line class="m" x2="439.3" transform="translate(120.1 406.6)"/>-->
-   <!--<line class="m" y2="9.3" transform="translate(120.1 402.2)"/>-->
-   <!--<line class="m" y2="9.3" transform="translate(559.9 402.2)"/>-->
-   
-   
-   <path class="n" d="M609,997.5H117l-41-41v-458H609Z"/>
-   <path class="f" d="M109.5,584.6l8.7,8.7-8.7,8.6"/>
-   <text class="k" transform="translate(119.611 536.498)">
-      <tspan x="0" y="0">YEAR</tspan>
-   </text>
-   <text class="k" transform="translate(119.611 674.644)">
-      <tspan x="0" y="0">COUNTRY</tspan>
-   </text>
-   <path class="m" d="M118.4,699.6H309.3l9.4,9.4v25.3l-190.9-.1-9.4-9.4V699.6Z"/>
-   
-   <text class="c" transform="translate(122.804 604.906) rotate(-90)">
-      <tspan x="0" y="0">2000</tspan>
-   </text>
-   <text class="c" transform="translate(560.947 604.906) rotate(-90)">
-      <tspan x="0" y="0">2016</tspan>
-   </text>
-   
-   <!--Years lines -->
-   <line class="m" y2="8.7" transform="translate(119.6 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(148.9 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(178.2 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(207.5 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(236.8 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(266 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(295.3 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(324.6 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(353.9 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(383.2 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(412.5 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(441.8 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(471 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(500.3 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(529.6 565.9)"/>
-   <line class="m" y2="8.7" transform="translate(558.9 565.9)"/>
-
-   <text class="k" transform="translate(119.611 795.783)">
-      <tspan x="0" y="0">REGION</tspan>
-   </text>
-   <path class="m" d="M118.4,821.9H243.5l9.4,9.4v25.3l-125.1-.1-9.4-9.4V821.9Z"/>
-   <path class="m" d="M259.7,821.9h111l9.4,9.4v25.3l-111-.1-9.4-9.4Z"/>
-   <text class="h" transform="translate(134.426 844.479)">
-      <tspan x="0" y="0">NORTH AFRICA</tspan>
-   </text>
-   <path class="m" d="M118.4,864.2H257.6l9.4,9.4v25.3l-139.2-.1-9.4-9.4Z"/>
-   <text class="h" transform="translate(138.426 886.766)">
-      <tspan x="0" y="0">CENTRAL AFRICA</tspan>
-   </text>
-   <path class="m" d="M118.4,906.5H295.2l9.4,9.4v25.3l-176.8-.1-9.4-9.4Z"/>
-   <text class="h" transform="translate(138.426 929.053)">
-      <tspan x="0" y="0">SUB-SAHARAN AFRICA</tspan>
-   </text>
-   <path class="m" d="M273,864.2H421.6l9.4,9.4v25.3l-148.6-.1-9.4-9.4Z"/>
-   <text class="h" transform="translate(291.095 886.766)">
-      <tspan x="0" y="0">SOUTHERN AFRICA</tspan>
-   </text>
-   <text class="h" transform="translate(276.025 844.479)">
-      <tspan x="0" y="0">WEST AFRICA</tspan>
-   </text>
-   <path class="m" d="M386.7,821.9h111l9.4,9.4v25.3l-111-.1-9.4-9.4Z"/>
-   <text class="h" transform="translate(406.025 844.479)">
-      <tspan x="0" y="0">EAST AFRICA</tspan>
-   </text>
-   <path class="f" d="M563.4,944.6l8.7,8.7-8.7,8.6"/>
-   <path class="o" d="M608.7,262.2l-507,.2H76V227.6H578Z"/>
-   <path class="p" d="M608.6,262.2l-30.7-34.6H325l30.7,34.6-254,.2H76.1V492.8H609V262.2Z"/>
-   <text class="k" transform="translate(121.131 410.469)">
-      <tspan x="0" y="0">GENDER</tspan>
-   </text>
-   <text class="h" transform="translate(257.945 445.478)">
-      <tspan x="0" y="0">FEMALE</tspan>
-   </text>
-   <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(238 435.5)"/>-->
-   <text class="h" transform="translate(382.445 445.978)">
-      <tspan x="0" y="0">BOTH</tspan>
-   </text>
-   <!--<circle class="q" cx="5" cy="5" r="5" transform="translate(362.5 436)"/>-->
-   <text class="h" transform="translate(141.445 445.978)">
-      <tspan x="0" y="0">MALE</tspan>
-   </text>
-   <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(121.5 436)"/>-->
-   <text class="k" transform="translate(121.131 322.469)">
-      <tspan x="0" y="0">SCHOOL LEVEL</tspan>
-   </text>
-   <text class="h" transform="translate(257.945 357.478)">
-      <tspan x="0" y="0">SECONDARY</tspan>
-   </text>
-   <!--<circle class="q" cx="5" cy="5" r="5" transform="translate(238 347.5)"/>-->
-   <text class="h" transform="translate(141.445 357.978)">
-      <tspan x="0" y="0">PRIMARY</tspan>
-   </text>
-   <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(121.5 348)"/>-->
-   
-   <!--white-->
-   <text class="h" transform="translate(165.131 251.854)">
-      <tspan x="0" y="0">ELECTRICITY</tspan>
-   </text>
-   
-   <!--red-->
-   <text class="j" transform="translate(431.623 251.854)">
-      <tspan x="0" y="0">EDUCATION</tspan>
-   </text>
-   
-   <!--<path class="r" d="M1840,997.5H117l-41-41v-729H1799l41,41Z"/>-->
-   <!--<text class="s" transform="translate(126.354 342.115)">-->
-   <!--   <tspan x="0" y="0">CONGO</tspan>-->
-   <!--</text>-->
-   <!--<path class="f" d="M1771,269.8l8.6,8.6L1771,287"/>-->
-   <!--<path class="f" d="M1788.2,287l-8.6-8.6,8.6-8.6"/>-->
-   <!--<line class="t" x1="0.4" y2="639" transform="translate(611.5 298.5)"/>-->
-   <!--<line class="f" x1="21" transform="translate(1729.5 278)"/>-->
-   <!--<text class="u" transform="translate(138.206 388.298)">-->
-   <!--   <tspan x="0" y="0">CENTRAL AFRICA</tspan>-->
-   <!--</text>-->
-   <!--<text class="u" transform="translate(255.411 388.298)">-->
-   <!--   <tspan x="0" y="0">2006</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M136,396h-6.5V373H136"/>-->
-   <!--<path class="v" d="M233,373h6.5v23H233"/>-->
-   <!--<text class="u" transform="translate(364.206 388.298)">-->
-   <!--   <tspan x="0" y="0">SECONDARY SCHOOL</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M361,396h-6.5V373H361"/>-->
-   <!--<path class="v" d="M478,373h6.5v23H478"/>-->
-   <!--<path class="v" d="M254,396h-6.5V373H254"/>-->
-   <!--<path class="v" d="M285,373h6.5v23H285"/>-->
-   <!--<text class="u" transform="translate(310.411 388.298)">-->
-   <!--   <tspan x="0" y="0">2010</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M306,396h-6.5V373H306"/>-->
-   <!--<path class="v" d="M340,373h6.5v23H340"/>-->
-   <!--<text class="u" transform="translate(501.411 388.298)">-->
-   <!--   <tspan x="0" y="0">BOTH</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M499,396h-6.5V373H499"/>-->
-   <!--<path class="v" d="M535,373h6.5v23H535"/>-->
-   <!--<path class="w" d="M612,997.5H117l-41-41v-729H571l41,41Z"/>-->
-   <!--<text class="s" transform="translate(126.354 342.115)">-->
-   <!--   <tspan x="0" y="0">CONGO</tspan>-->
-   <!--</text>-->
-   <!--<text class="u" transform="translate(138.206 388.298)">-->
-   <!--   <tspan x="0" y="0">CENTRAL AFRICA</tspan>-->
-   <!--</text>-->
-   <!--<text class="u" transform="translate(255.411 388.298)">-->
-   <!--   <tspan x="0" y="0">2006</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M136,396h-6.5V373H136"/>-->
-   <!--<path class="v" d="M233,373h6.5v23H233"/>-->
-   <!--<text class="u" transform="translate(364.206 388.298)">-->
-   <!--   <tspan x="0" y="0">SECONDARY SCHOOL</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M361,396h-6.5V373H361"/>-->
-   <!--<path class="v" d="M478,373h6.5v23H478"/>-->
-   <!--<path class="v" d="M254,396h-6.5V373H254"/>-->
-   <!--<path class="v" d="M285,373h6.5v23H285"/>-->
-   <!--<text class="u" transform="translate(310.411 388.298)">-->
-   <!--   <tspan x="0" y="0">2010</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M306,396h-6.5V373H306"/>-->
-   <!--<path class="v" d="M340,373h6.5v23H340"/>-->
-   <!--<text class="u" transform="translate(501.411 388.298)">-->
-   <!--   <tspan x="0" y="0">BOTH</tspan>-->
-   <!--</text>-->
-   <!--<path class="v" d="M499,396h-6.5V373H499"/>-->
-   <!--<path class="v" d="M535,373h6.5v23H535"/>-->
-   <!--<path class="f" d="M542,269.8l8.6,8.6L542,287"/>-->
-   <!--<path class="f" d="M559.2,287l-8.6-8.6,8.6-8.6"/>-->
+      <path class="b2" d="M1840,997H117L76,956V227H1799l41,41Z"/>
+      <text class="c2" transform="translate(681.354 728.615)">
+         <tspan x="0" y="0">Lorem ipsum</tspan>
+      </text>
+      <text class="d2" transform="translate(910.354 364.615)">
+         <tspan x="0" y="0" id="landarea">905,400</tspan>
+      </text>
+      <text class="km" transform="translate(1061.354 364.615)">
+         <tspan x="0" y="0">km</tspan>
+      </text>
+      <text class="e" transform="translate(1100.042 352.292)">
+         <tspan x="0" y="0">2</tspan>
+      </text>
+      <line class="f2" x2="0.3" y2="368.3" transform="translate(1230.2 298.7)"/>
+      <rect class="g2" width="1086" height="185.9" transform="translate(682 756.1)"/>
+      <text class="h2" transform="translate(682.005 772.846)">
+         <tspan x="0" y="0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut </tspan>
+         <tspan x="0" y="32.8">laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ul-</tspan>
+         <tspan x="0" y="65.6">lamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in </tspan>
+         <tspan x="0" y="98.4">hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros </tspan>
+         <tspan x="0" y="131.2">et accumsan et iusto odio dignissim qui blandit</tspan>
+      </text>
+      <path class="i2" d="M1033.7,442.1"/>
+      <text class="j2" transform="translate(912.615 325.266)">
+         <tspan x="0" y="0">Land Area</tspan>
+      </text>
+      <text class="j2" transform="translate(1283.615 325.266)">
+         <tspan x="0" y="0">Population</tspan>
+      </text>
+      <text class="k2" transform="translate(167.615 496.266)">
+         <tspan x="0" y="0" id="country_year1_main">2222</tspan>
+      </text>
+      <text class="l2" transform="translate(124.615 425.266)">
+         <tspan x="0" y="0" id="country_desc">Congo</tspan>
+         <tspan class="m2" y="0">’s access to electricity and the number of out-of-school </tspan>
+         <tspan class="m2">
+            <tspan x="0" y="21">children in </tspan>
+            <tspan class="n2" y="21" id="country_year1_desc">2006</tspan>
+            <tspan y="21" xml:space="preserve"> and </tspan>
+            <tspan class="n2" y="21" id="country_year2_desc">2010 </tspan>
+            <tspan y="21">for both </tspan>
+            <tspan class="n2" y="21">males </tspan>
+            <tspan y="21">and</tspan>
+            <tspan class="n2" y="21" xml:space="preserve"> females</tspan>
+            <tspan y="21">.</tspan>
+         </tspan>
+      </text>
+      <text class="k2" transform="translate(167.615 730.266)">
+         <tspan x="0" y="0" id="country_year2_main">3333</tspan>
+      </text>
+      <path class="o2" d="M552.5,936.5H162.6l-38-38v-428H514.5l38,38Z"/>
+      <path class="o2" d="M823,492l87-111h184"/>
+      <text class="p2" transform="translate(1284.354 464.615)">
+         <tspan x="0" y="0" id="population_year1">2009</tspan>
+      </text>
+      <text class="p2" transform="translate(1284.354 504.615)">
+         <tspan x="0" y="0" id="population_year2">2010</tspan>
+      </text>
+      <line class="o2" x2="0.3" y2="115" transform="translate(1338.5 422)"/>
+      <!--<path class="q2" id="population_box_bottom" d="M1573.2,516.2h-193l-13-13V485.3h193l13,13Z"/>-->
+      <path class="q2" id="population_box_top" d="M1551.1,476.9H1380.3l-13-13V446h170.8l13,13Z"/>
+      <path class="q2" id="population_box_bottom" d="M1367.2,485.2v18l13,13h193v-18l-13,-13Z"/>
+      <!--<path class="q2" id="population_box_top" d="M1551.1,476.9H1380.3l-13-13V446h170.8l13,13Z"/>-->
+      <text class="r2" transform="translate(1380.578 506.391)">
+         <tspan x="0" y="0" id="population_year2_value">65,970,000</tspan>
+      </text>
+      <text class="r2" transform="translate(1380.578 468.391)">
+         <tspan x="0" y="0" id="population_year1_value">59,900,000</tspan>
+      </text>
+      <text class="s2" transform="translate(1284.068 635.611)">
+         <tspan x="0" y="0">Lorem ipsum dolor sit amet, consectetuer</tspan>
+      </text>
+      <line class="o2" x2="426" transform="translate(125 703.5)"/>
+      <line class="o2" x2="426" transform="translate(125 742.5)"/>
+      <line class="o2" x2="426" transform="translate(125 508.5)"/>
+      <text class="t2" transform="translate(167.56 575.076)">
+         <tspan x="0" y="0" id="year1_access_electricity">33.4%</tspan>
+      </text>
+      <text class="u2" transform="translate(167.56 622.926)">
+         <tspan x="0" y="0" id="year1_females">137,726</tspan>
+      </text>
+      <text class="v2" transform="translate(167.56 672.73)">
+         <tspan x="0" y="0"id="year1_males" >122,770</tspan>
+      </text>
+      <text class="w2" transform="translate(167.837 596.505)">
+         <tspan x="0" y="0">Females</tspan>
+      </text>
+      <text class="w2" transform="translate(167.837 645.333)">
+         <tspan x="0" y="0">Males</tspan>
+      </text>
+      <text class="w2" transform="translate(167.837 546.702)">
+         <tspan x="0" y="0">Access to Electricity</tspan>
+      </text>
+      <path class="x2" d="M431.9,646.1a59.154,59.154,0,0,0-52.4-86.5"/>
+      <path class="y2" d="M388.9,664.5a46.731,46.731,0,0,0-9.4-92.5"/>
+      <path class="z2" d="M399.4,646.8a34.38,34.38,0,0,0-19.8-62.5"/>
+      <text class="t2" transform="translate(167.56 805.61)">
+         <tspan x="0" y="0" id="year2_access_electricity">42.5%</tspan>
+      </text>
+      <text class="u2" transform="translate(167.56 853.461)">
+         <tspan x="0" y="0" id="year2_females">56,387</tspan>
+      </text>
+      <text class="v2" transform="translate(167.56 903.265)">
+         <tspan x="0" y="0" id="year2_males">46,041</tspan>
+      </text>
+      <text class="w2" transform="translate(167.837 827.04)">
+         <tspan x="0" y="0">Females</tspan>
+      </text>
+      <text class="w2" transform="translate(167.837 875.867)">
+         <tspan x="0" y="0">Males</tspan>
+      </text>
+      <text class="w2" transform="translate(167.837 777.236)">
+         <tspan x="0" y="0">Access to Electricity</tspan>
+      </text>
+      <path class="x2" d="M379.9,782.8a59.111,59.111,0,0,1,17.4,115.6"/>
+      <path class="y2" d="M379.9,795.2a46.752,46.752,0,0,1,45.6,36.5"/>
+      <path class="z2" d="M379.9,807.5a34.315,34.315,0,0,1,24.3,10.1"/>
+      <text class="aa2" transform="translate(126.354 341.615)">
+         <tspan x="0" y="0" id="country_title">CONGO</tspan>
+      </text>
+      <path class="ab2" d="M1771,269.3l8.6,8.6-8.6,8.6"/>
+      <path class="ab2" d="M1788.2,286.5l-8.6-8.6,8.6-8.6"/>
+      <line class="f2" x1="0.4" y2="639" transform="translate(611.5 298)"/>
+      <line class="ab2" x1="21" transform="translate(1729.5 277.5)"/>
+      <text class="ac2" transform="translate(138.206 387.798)">
+         <tspan x="0" y="0" id="region_bracket">CENTRAL AFRICA</tspan>
+      </text>
+      <text class="ac2" transform="translate(255.411 387.798)">
+         <tspan x="0" y="0" id="country_year1_bracket">2006</tspan>
+      </text>
+      <path class="ad2" d="M136,395.5h-6.5v-23H136"/>
+      <path class="ad2" d="M233,372.5h6.5v23H233"/>
+      <text class="ac2" transform="translate(364.206 387.798)">
+         <tspan x="0" y="0" id="school_bracket">SECONDARY SCHOOL</tspan>
+      </text>
+      <path class="ad2" d="M361,395.5h-6.5v-23H361"/>
+      <path class="ad2" d="M478,372.5h6.5v23H478"/>
+      <path class="ad2" d="M254,395.5h-6.5v-23H254"/>
+      <path class="ad2" d="M285,372.5h6.5v23H285"/>
+      <text class="ac2" transform="translate(310.411 387.798)">
+         <tspan x="0" y="0" id="country_year2_bracket">2010</tspan>
+      </text>
+      <path class="ad2" d="M306,395.5h-6.5v-23H306"/>
+      <path class="ad2" d="M340,372.5h6.5v23H340"/>
+      <text class="ac2" transform="translate(501.411 387.798)">
+         <tspan x="0" y="0" id="gender_bracket">BOTH</tspan>
+      </text>
+      <path class="ad2" d="M499,395.5h-6.5v-23H499"/>
+      <path class="ad2" d="M535,372.5h6.5v23H535"/>
+   </g>
 </svg>
+
     <div id="map"></div>
      
 </body>
