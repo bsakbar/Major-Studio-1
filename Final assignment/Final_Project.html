@@ -6,7 +6,7 @@
     <title>Final Assignment</title>
     
     <script src="https://d3js.org/d3.v5.min.js"></script>
-     <script language="javascript" type="text/javascript" src="Final_Project_2.js"></script>
+     <script language="javascript" type="text/javascript" src="Final_Project.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
   
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet'/>
@@ -368,13 +368,13 @@
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
         background-color: transparent;
-        border: #f93d3d;
+        border: none;
         border-radius: 0;
         -webkit-appearance: none;
         <!--color: #f93d3d;-->
-        padding: 7px 7px;
+        padding: 20px 15px;
         display: inline-block;
-        margin: 870px 487px;
+        margin: 875px 490px;
         cursor: pointer;
         "type="button" name="submitarrow" onclick="submit_arrow()" /> 
        </div> 
@@ -554,7 +554,7 @@
     <rect class="a" width="1921" height="1080" transform="translate(0 0.5)"/>
     <path class="b" d="M1332,1081.5l-1332-1V.5L376.5,0Z"/>
     <text class="c" transform="translate(1711.068 999.111)">
-        <tspan x="0" y="0">COPYRIGHTS | DATA SOURCE</tspan>
+        <tspan x="0" y="-10">COPYRIGHTS | DATA SOURCE</tspan>
     </text>
     <text class="d" transform="translate(71.703 105.082)">
       <tspan x="0" y="0">How does access to</tspan>
@@ -721,12 +721,13 @@
            </text>
        </g>
    </g>
-     <img src="../SVG/Algeria.svg" style="position:absolute; z-index:2; outline:none;" id="country-map" class="country_3d country-svg">
+     <img src="SVG/Algeria.svg" style="position:absolute; z-index:2; outline:none;" id="country-map" class="country_3d country-svg">
 </svg>
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1922 1081" class="country-svg">
    <defs>
       <style>
+         
             .a2,.ab2,.ad2,.f2,.g2,.i2,.o2,.q2,.x2,.y2,.z2{
                 fill:none;
             }
@@ -740,7 +741,7 @@
                 fill:#fff;
             }
             .c2,.d2{
-                font-size:36px;
+                font-size:34px;
             }
             .aa2,.c2,.k2,.l2,.n2,.r2,.t2,.u2,.v2{
                 font-family:MiriamLibre-Bold, Miriam Libre;
@@ -814,7 +815,7 @@
             }
             .km{
                 font-family:MiriamLibre-Regular, Miriam Libre;
-                font-size:24px;
+                font-size:20px;
                 fill:#fff;
             }
     </style>
@@ -832,7 +833,7 @@
    
       <path class="b2" d="M1840,997H117L76,956V227H1799l41,41Z"/>
       <text class="c2" transform="translate(681.354 728.615)">
-         <tspan x="0" y="0">Lorem ipsum</tspan>
+         <tspan x="0" y="5">Summary</tspan>
       </text>
       <text class="d2" transform="translate(910.354 364.615)">
          <tspan x="0" y="0" id="landarea">905,400</tspan>
@@ -845,12 +846,13 @@
       </text>
       <line class="f2" x2="0.3" y2="368.3" transform="translate(1230.2 298.7)"/>
       <rect class="g2" width="1086" height="185.9" transform="translate(682 756.1)"/>
-      <text class="h2" transform="translate(682.005 772.846)">
-         <tspan x="0" y="0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut </tspan>
-         <tspan x="0" y="32.8">laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ul-</tspan>
-         <tspan x="0" y="65.6">lamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in </tspan>
-         <tspan x="0" y="98.4">hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros </tspan>
-         <tspan x="0" y="131.2">et accumsan et iusto odio dignissim qui blandit</tspan>
+      <text class="km" transform="translate(682.005 775.846)">
+         <tspan x="0" y="0">Girls of every school-age group are more likely to be excluded from education than boys across </tspan>
+         <tspan x="0" y="27">sub-Saharan Africa. For every 100 boys of primary school age out of school there are 123 girls denied</tspan>
+         <tspan x="0" y="54">the right to education. Data suggest that girls who are able to start school tend to pursue their studies.</tspan>
+         <tspan x="0" y="81">While the gender disparities persist, the adjusted GPI falls slightly from 1.23 for the primary school-age</tspan>
+         <tspan x="0" y="108">group to 1.11 for lower secondary and upper secondary school-age populations.</tspan>
+         <tspan font-size="12" text-decoration:underline; fill="#f93d3d" x="0" y="145">Data Source</tspan>
       </text>
       <path class="i2" d="M1033.7,442.1"/>
       <text class="j2" transform="translate(912.615 325.266)">
@@ -900,7 +902,7 @@
          <tspan x="0" y="0" id="population_year1_value">59,900,000</tspan>
       </text>
       <text class="s2" transform="translate(1284.068 635.611)">
-         <tspan x="0" y="0">Lorem ipsum dolor sit amet, consectetuer</tspan>
+         <tspan x="0" y="0">The population has incresed by 00% in # years.</tspan>
       </text>
       <line class="o2" x2="426" transform="translate(125 703.5)"/>
       <line class="o2" x2="426" transform="translate(125 742.5)"/>
