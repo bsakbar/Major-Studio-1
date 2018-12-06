@@ -4,18 +4,23 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700" rel="stylesheet">
     <title>Final Assignment</title>
-    
+
     <script src="https://d3js.org/d3.v5.min.js"></script>
      <script language="javascript" type="text/javascript" src="Final_Project.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
-  
+
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet'/>
-    
+
      <!--<link rel="import" href="svg_country_details.html">-->
    <style>
-        body {
-            width:1920px;
+
+        html{
+            width: 1920px;
             height: 1080px;
+
+        }
+
+        body {
         	padding: 0px;
         	margin: 0px;
         	background-color:#091116;
@@ -23,17 +28,17 @@
         }
         #map {
             position:fixed;
-            width: 100%;
+            width:100%;
             height: 100%;
             margin: auto auto;
             display: block;
+
         }
         svg {
             width:1920px;
             height: 1080px;
             position: absolute;
-            width: 100%;
-            height: 100%;
+
         }
         .hidden {
         	display: none;
@@ -47,10 +52,10 @@
         .Timeslider,.Timeslider_2{
             -webkit-appearance: none;
             padding: 0px 0px;
-            width: 388px;
+            width: 441px;
             height: 0.5px;
-            border-radius: none;   
-            background: none;
+            border-radius: none;
+            background: transparent;
             outline: none;
             opacity: none;
             -webkit-transition: .2s;
@@ -63,34 +68,34 @@
             appearance: none;
             width: 3px;
             height: 18px;
-            border-radius: none; 
+            border-radius: none;
             background: #f93d3d;
             cursor: pointer;
         }
-        
+
         .Timeslider::-moz-range-thumb,.Timeslider_2::-moz-range-thumb {
             width: 1px;
             height: 18px;
             border-radius: none;
             background: #f93d3d;
             cursor: pointer;
-        }   
+        }
         .Timeslider{
-            margin: 550px 103px;
+            margin: 570px 120px;
         }
         .Timeslider_2{
-            margin: 568px 103px;
+            margin: 590px 120px;
         }
-        
-          
+
+
        .Accessslider {
             -webkit-appearance: none;
-            margin: 408px 103px;
+            margin: 406px 119px;
             padding: 0px 0px;
-            width: 388px;
+            width: 441px;
             height: 0.5px;
-            border-radius: none;   
-            background: none;
+            border-radius: none;
+            background: transparent;
             outline: none;
             opacity: none;
             -webkit-transition: .2s;
@@ -103,19 +108,19 @@
             appearance: none;
             width: 3px;
             height: 18px;
-            border-radius: none; 
+            border-radius: none;
             background: #f93d3d;
             cursor: pointer;
         }
-        
+
         .Accessslider::-moz-range-thumb {
             width: 1px;
             height: 18px;
             border-radius: none;
             background: #f93d3d;
             cursor: pointer;
-        }   
-        
+        }
+
         .radio{
             transition: 0.3s all linear;
             -webkit-appearance: none;
@@ -124,18 +129,18 @@
             border-radius: 100%;
             width: 10px;
             height: 10px;
-            color: transparent;
+            color: red;
             background-color: transparent;
             margin: 3px 3px;
             border-radius: 100%;
-            border: 0.5px solid white;
+            border: 0.6px solid white;
             border-color: white;
         }
         .radio:checked {
             background-color: #f93d3d;
             border: none;
         }
-        
+
         .radio:active{
              background-color: #f93d3d;
              color: #f93d3d;
@@ -157,31 +162,15 @@
             display: none;
         }
         .country_3d{
-            width: 11%;
-            margin: 421px 660px;
+            width: 15%;
+            margin: 400px 750px;
         }
-        
+
     </style>
 </head>
 
 <body>
-    
-    <a href="https://bsakbar.github.io/major-studio-1/Final%20assignment/msdv-final-batool.pdf">
-   <input  style="position:absolute; z-index:2; outline:none; 
-    -webkit-box-shadow: 0px 0px 0px;
-        box-shadow: 0px 0px 0px;
-        font-family: 'Miriam Libre', sans-serif;
-        background-color: transparent;
-        border: none;
-        border-radius: 0;
-        -webkit-appearance: none;
-        color: #f93d3d;
-        padding: 6px 20px;
-        display: inline-block;
-        margin: 940px 1467px;
-        cursor: pointer;" 
-        type="button" value="[                                      ]" />
-</a>
+
 
     <div class="right-arrow-click">
     <!--bottom filter box-->
@@ -190,7 +179,7 @@
          <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider_2" value="10" id="YearRange2">
 
    <!--<input " margin-top: 10px;margin-left:10px"; type="button" value="test" onclick="myFunction()"/>-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         border:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
@@ -200,13 +189,13 @@
         -webkit-appearance: none;
         color: #f93d3d;
         width: 200px;
-        margin: 662px 110px;
+        margin: 700px 120px;
         padding: 10px 10px;" type="text" id="country_textbox" placeholder="Enter Country" />
         <!--width: 150px;-->
         <!--padding: 15px 70px 772.483px 120.495px;-->
-        
+
         <!--North Africa Button-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -217,12 +206,12 @@
         color: #f93d3d;
         padding: 8px 60px;
         display: inline-block;
-        margin: 768px 101px;
+        margin: 824px 127px;
         cursor: pointer;
         "type="button" name="region" />
-        
+
         <!--West Africa Button-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -233,12 +222,12 @@
         color: #f93d3d;
         padding: 8px 50px;
         display: inline-block;
-        margin: 768px 230px;
+        margin: 824px 270px;
         cursor: pointer;
         "type="button" name="region" />
-        
+
         <!--East Africa Button-->
-          <input style="position:absolute; z-index:2; outline:none; 
+          <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -249,12 +238,12 @@
         color: #f93d3d;
         padding: 8px 50px;
         display: inline-block;
-        margin: 768px 340px;
+        margin: 824px 395px;
         cursor: pointer;
         "type="button" name="region" />
-        
+
          <!--Central Africa Button-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -265,12 +254,12 @@
         color: #f93d3d;
         padding: 7px 64px;
         display: inline-block;
-        margin: 807px 103px;
+        margin: 867px 130px;
         cursor: pointer;
         "type="button" name="region" />
-        
+
         <!--Southern Africa Button-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -281,12 +270,12 @@
         color: #f93d3d;
         padding: 7px 66px;
         display: inline-block;
-        margin: 807px 240px;
+        margin: 867px 285px;
         cursor: pointer;
         "type="button" name="region" />
-        
+
           <!--Sub-Saharan Africa Button-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -297,15 +286,15 @@
         color: #f93d3d;
         padding: 7px 80px;
         display: inline-block;
-        margin: 845px 103px;
+        margin: 910px 130px;
         cursor: pointer;
         "type="button" name="region" />
-        
-        
-        
+
+
+
         <!--upper filter box-->
         <!--electricity tab-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -315,15 +304,15 @@
         -webkit-appearance: none;
         padding: 8px 105px;
         display: inline-block;
-        margin: 250px 70px;
+        margin: 230px 110px;
         cursor: pointer;
         "type="button" name="electricity" onclick="electricity_tab()"/>
-        
+
          <!--accessibility range  -->
          <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="10" class="Accessslider electricity-tab" id="YearRange">
-        
+
          <!--education tab-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -333,37 +322,37 @@
         -webkit-appearance: none;
         padding: 8px 100px;
         display: inline-block;
-        margin: 250px 310px;
+        margin: 230px 360px;
         cursor: pointer;
         "type="button" name="education" onclick="education_tab()" />
-        
-            
+
+
         <div class = "education-tab">
-            
+
             <!--school level radio-->
-            <input class="radio" style="position:absolute; z-index:2; outline:none; 
-            margin: 356px 205px;
-            "type="radio" name="school" value="SECONDARY"> 
-            <input class="radio" style="position:absolute; z-index:2; outline:none; 
-            margin: 356px 104px;
+            <input class="radio" style="position:absolute; z-index:2; outline:none;
+            margin: 348px 235px;
+            "type="radio" name="school" value="SECONDARY">
+            <input class="radio" style="position:absolute; z-index:2; outline:none;
+            margin: 348px 120px;
             "type="radio" name="school" value="PRIMARY">
-            
-              
+
+
             <!--gender radio-->
-            <input class="radio" style="position:absolute; z-index:2; outline:none; 
-            margin: 433px 104px;
+            <input class="radio" style="position:absolute; z-index:2; outline:none;
+            margin: 436px 120px;
             "type="radio" name="gender" value="male">
-            <input class="radio" style="position:absolute; z-index:2; outline:none; 
-            margin: 433px 205px;
-            "type="radio" name="gender" value="female"> 
-             <input class="radio" style="position:absolute; z-index:2; outline:none; 
-            margin: 433px 314px;
+            <input class="radio" style="position:absolute; z-index:2; outline:none;
+            margin: 436px 235px;
+            "type="radio" name="gender" value="female">
+             <input class="radio" style="position:absolute; z-index:2; outline:none;
+            margin: 436px 357px;
             "type="radio" name="gender" value="both">
-            
+
         </div>
-        
+
         <!--LEFT ARROW-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -374,12 +363,12 @@
         color: #f93d3d;
         padding: 7px 7px;
         display: inline-block;
-        margin: 557px 22px;
+        margin: 575px 29px;
         cursor: pointer;
         "type="button" name="leftarrow" onclick="left_arrow()" />
-        
+
         <!--SUBMIT ARROW-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -390,13 +379,13 @@
         <!--color: #f93d3d;-->
         padding: 20px 15px;
         display: inline-block;
-        margin: 875px 490px;
+        margin: 943px 560px;
         cursor: pointer;
-        "type="button" name="submitarrow" onclick="submit_arrow()" /> 
-       </div> 
-       
+        "type="button" name="submitarrow" onclick="submit_arrow()" />
+       </div>
+
        <!--RIGHT ARROW-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -407,13 +396,13 @@
         color: #f93d3d;
         padding: 7px 7px;
         display: inline-block;
-        margin: 557px 92px;
+        margin: 577px 106px;
         cursor: pointer;
         "type="button" name="rightarrow" class="right-arrow" onclick="right_arrow()" />
-        
-       
+
+
        <!--close button for country details-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -424,12 +413,12 @@
         color: #f93d3d;
         padding: 6px 12px;
         display: none;
-        margin: 281px 1542px;
+        margin: 263px 1768px;
         cursor: pointer;
         "type="button" name="closebutton" class="country-svg" onclick="close_button()"/>
-        
+
         <!--minimize country details-->
-        <input style="position:absolute; z-index:2; outline:none; 
+        <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -440,15 +429,15 @@
         color: #f93d3d;
         padding: 6px 12px;
         display: none;
-        margin: 281px 1509px;
+        margin: 263px 1728px;
         cursor: pointer;
         "type="button" name="closebutton" class="country-svg"/>
-        
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1921 1081.5">
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
    <defs>
       <style>
-      
+
     .a{
     fill:#0a141c;
     }
@@ -539,7 +528,7 @@
           <!--   <stop offset="0.807" stop-color="#1b2129" stop-opacity="0.596"/>-->
           <!--   <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>-->
           <!--</linearGradient>-->
-          
+
           <!--upper box electricity-->
           <g class="electricity-tab">
           <linearGradient id="b" x1="-0.023" y1="1.551" x2="1.095" y2="-0.695" gradientUnits="objectBoundingBox">
@@ -550,10 +539,10 @@
              <stop offset="1" stop-color="#2d353e" stop-opacity="0.502"/>
           </linearGradient>
           </g>
-          
+
           <!--bottomBox-->
           <linearGradient id="c" x1="0.054" y1="0.976" x2="1.312" y2="-0.367" xlink:href="#b"/>
-          
+
           <g class="education-tab">
               <!-- education tab-->
               <linearGradient id="d" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">
@@ -566,7 +555,7 @@
             </g>
               <!--education box-->
             <linearGradient id="e" x1="-0.007" y1="1.585" x2="1.115" y2="-0.671" xlink:href="#b" class="education-tab"/>
-          
+
           <linearGradient id="f" x1="0.959" y1="-0.108" x2="0.034" y2="1.116" xlink:href="#b"/>
           <linearGradient id="g" x1="1.153" y1="0.238" x2="-0.162" y2="0.766" xlink:href="#b"/>
         <!--</defs> closing tag was here-->
@@ -588,38 +577,38 @@
       <tspan class="e" y="50">]</tspan>
       <tspan y="50" xml:space="preserve"> in Africa?</tspan>
     </text>
-    
+
     <g class="right-arrow-click">
         <!--left arrow-->
         <path class="f" d="M40,599.9l-8.6-8.6,8.6-8.7"/>
-        
+
         <g class="electricity-tab">
            <!--white-->
            <path class="g" d="M608.7,262.2l-254,.2H76V227.6H578Z"/>
            <text class="h" transform="translate(431.623 251.854)">
               <tspan x="0" y="0">EDUCATION</tspan>
            </text>
-           
+
            <!--red-->
            <path class="i" d="M355.6,262.2H609V492.8H76.1V227.6H324.9Z"/>
            <text class="j" transform="translate(165.131 251.854)">
               <tspan x="0" y="0">ELECTRICITY</tspan>
            </text>
-       
+
            <text class="k" transform="translate(120.131 355.469)">
               <tspan x="0" y="0">LEVEL OF ACCESSIBILITY</tspan>
            </text>
-           
-           <text class="l" transform="translate(118.875 427.016)">
+
+           <text class="l" transform="translate(117 430)">
               <tspan x="0" y="0">0</tspan>
            </text>
            <text class="l" transform="translate(550.684 387.305)">
               <tspan x="0" y="0">%</tspan>
            </text>
-           <text class="l" transform="translate(545.197 427.014)">
+           <text class="l" transform="translate(546 430)">
               <tspan x="0" y="0">100</tspan>
            </text>
-           
+
            <!--accessibility lines-->
            <!--<line class="m" x2="439.3" transform="translate(120.1 406.6)"/>-->
            <!--<line class="m" y2="9.3" transform="translate(120.1 402.2)"/>-->
@@ -642,14 +631,14 @@
        <!--<line class="m" y2="8.7" transform="translate(529.6 402.2)"/>-->
        <!--<line class="m" y2="8.7" transform="translate(558.9 402.2)"/>-->
        </g>
-       
+
        <path class="n" d="M609,997.5H117l-41-41v-458H609Z"/>
    </g>
-   
+
    <!--right arrow-->
    <path class="f right-arrow" d="M109.5,584.6l8.7,8.7-8.7,8.6"/>
-   
-   <g class="right-arrow-click">  
+
+   <g class="right-arrow-click">
        <text class="k" transform="translate(119.611 536.498)">
           <tspan x="0" y="0">YEAR</tspan>
        </text>
@@ -657,21 +646,21 @@
           <tspan x="0" y="0">COUNTRY</tspan>
        </text>
        <path class="m" d="M118.4,699.6H309.3l9.4,9.4v25.3l-190.9-.1-9.4-9.4V699.6Z"/>
-       
+
        <text class="c" transform="translate(122.804 624.906) rotate(-90)">
           <tspan x="0" y="0">2000</tspan>
        </text>
        <text class="c" transform="translate(560.947 624.906) rotate(-90)">
           <tspan x="0" y="0">2016</tspan>
        </text>
-       
+
        <!--Years lines -->
        <line class="m" x2="439.3" transform="translate(120.1 569.9)"/>
-    
+
         <line class="m" x2="439.3" transform="translate(120.1 589.9)"/>
         <line class="m" y2="28.3" transform="translate(120.1 565.9)"/>
        <line class="m" y2="28.3" transform="translate(559.9 565.9)"/>
-       
+
        <text class="k" transform="translate(119.611 795.783)">
           <tspan x="0" y="0">REGION</tspan>
        </text>
@@ -702,7 +691,7 @@
        <path class="f" d="M563.4,944.6l8.7,8.7-8.7,8.6"/>
        <!--<path class="o" d="M608.7,262.2l-507,.2H76V227.6H578Z"/>-->
        <path class="p" d="M608.6,262.2l-30.7-34.6H325l30.7,34.6-254,.2H76.1V492.8H609V262.2Z"/>
-       
+
        <g class="education-tab">
            <text class="k" transform="translate(121.131 410.469)">
               <tspan x="0" y="0" >GENDER</tspan>
@@ -730,12 +719,12 @@
               <tspan x="0" y="0">PRIMARY</tspan>
            </text>
            <!--<circle class="m" cx="5" cy="5" r="5" transform="translate(121.5 348)"/>-->
-           
+
            <!--white-->
            <text class="h" transform="translate(165.131 251.854)">
               <tspan x="0" y="0">ELECTRICITY</tspan>
            </text>
-           
+
            <!--red-->
            <text class="j" transform="translate(431.623 251.854)">
               <tspan x="0" y="0">EDUCATION</tspan>
@@ -748,7 +737,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1922 1081" class="country-svg">
    <defs>
       <style>
-         
+
             .a2,.ab2,.ad2,.f2,.g2,.i2,.o2,.q2,.x2,.y2,.z2{
                 fill:none;
             }
@@ -763,7 +752,7 @@
             }
             .c2,.d2{
                 font-family:MiriamLibre-Bold, Miriam Libre;
-                font-size:40px;
+                font-size:38px;
                 letter-spacing: -1px;
             }
             .aa2,.c2,.k2,.l2,.n2,.r2,.t2,.u2,.v2{
@@ -843,7 +832,7 @@
             }
             .paragraph{
                 font-family:MiriamLibre-Regular, Miriam Libre;
-                font-size:18px;
+                font-size:16px;
                 fill:#fff;
             }
     </style>
@@ -856,9 +845,9 @@
       </linearGradient>
    </defs>
    <g transform="translate(0.5 0.5)">
-       
- 
-   
+
+
+
       <path class="b2" d="M1840,997H117L76,956V227H1799l41,41Z"/>
       <text class="c2" transform="translate(681.354 728.615)">
          <tspan x="0" y="5">Summary</tspan>
@@ -1013,6 +1002,5 @@
 </svg>
 
     <div id="map"></div>
-     
-</body>
 
+</body>
