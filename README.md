@@ -1,6 +1,8 @@
 # major-studio-1
 
-Project Description:
+Project Description
 
-Resources:
+Resources
+
+Preview Link
 
