@@ -8,7 +8,7 @@ d3.json('data/africa.geo.json').then((geojson) => {
               container: 'map',
               style: 'mapbox://styles/bsakbar/cjo3i2pfx2l8h2to7hrnvto7k',
               center: [15.319,29.721], // 6.513,19.669
-              zoom: 2.8,
+              zoom: 3,
               pitch: 100,
               bearing: 50,
               interactive: false
