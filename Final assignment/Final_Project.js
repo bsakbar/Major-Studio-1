@@ -241,13 +241,25 @@ function submit_arrow() {
   document.getElementById("year2_males").innerHTML = parseInt(education_year2['male']).toLocaleString()
   document.getElementById("year2_females").innerHTML = parseInt(education_year2['female']).toLocaleString()
 
+  // Population
+  var popyear1 = parseInt(country_population[year1])
+  var popyear2 = parseInt(country_population[year2])
+  var popyear1_d = "M1367.2,445.9v18l13,13h"+(popyear1/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z" 
+  var popyear2_d = "M1367.2,485.2v18l13,13h"+(popyear2/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z"
+  console.log(popyear1/Math.max(popyear1,popyear2)*200)
+  console.log(popyear2/Math.max(popyear1,popyear2)*200)
+  
   document.getElementById("population_year1").innerHTML = year1
-  document.getElementById("population_year1_value").innerHTML = parseInt(country_population[year1]).toLocaleString()
+  document.getElementById("population_year1_value").innerHTML = popyear1.toLocaleString()
+  document.getElementById("population_box_year1").setAttribute('d', popyear1_d)
   document.getElementById("population_year2").innerHTML = year2
-  document.getElementById("population_year2_value").innerHTML = parseInt(country_population[year2]).toLocaleString()
+  document.getElementById("population_year2_value").innerHTML = popyear2.toLocaleString()
+  document.getElementById("population_box_year2").setAttribute('d', popyear2_d)
+  console.log(document.getElementById("population_box_year1"))
+  console.log(document.getElementById("population_box_year2"))
+
   document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()
   document.getElementById("map").style.display = "none"
-  // d="M1367.2,485.2v18l13,13h193v-18l-13,-13Z"
 
   var elements = document.getElementsByClassName("country-svg");
   elements['country-map'].src="SVG/"+country_electricity["Country_Name"]+".svg"
