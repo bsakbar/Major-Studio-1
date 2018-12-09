@@ -1,0 +1,39 @@
+{ "regions" :
+	[
+		{
+			"region" : "North Africa",
+			"countries" : ["Algeria", "Egypt","Libya","Morocco","Tunisia"],
+			"summary" : "NA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
+			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
+			people and contributes to more peaceful societies."
+		},
+		{
+			"region" : "West Africa",
+			"countries" : ["Benin", "Burkina Faso","Cape Verde","Côte d'Ivoire","Gambia","Ghana","Guinea","Guinea-Bissau","Liberia","Mali","Mauritania","Niger","Nigeria","Senegal","Sierra Leone","Togo"],
+			"summary" : "WA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
+			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
+			people and contributes to more peaceful societies."
+		},
+		{
+			"region" : "East Africa",
+			"countries" : ["Djibouti", "Eritrea","Somalia","Sudan","S. Sudan","Mauritius","Comoros","Seychelles","Uganda","Rwanda","Burundi","Kenya","Tanzania","Zambia","Zimbabwe"],
+			"summary" : "EA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
+			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
+			people and contributes to more peaceful societies."
+		},
+		{
+			"region" : "Central Africa",
+			"countries" : ["Cameroon","Central African Rep.","Chad","Dem. Rep. Congo","Eq. Guinea","São Tomé and Príncipe"],
+			"summary" : "CA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
+			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
+			people and contributes to more peaceful societies."
+		},
+		{
+			"region" : "Southern Africa",
+			"countries" : ["Botswana", "Swaziland","Lesotho","Mozambique","Madagascar","Zambia","Zimbabwe","Malawi","Namibia","South Africa","Angola"],
+			"summary" : "SA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty. 
+			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
+			people and contributes to more peaceful societies."
+		}
+	]
+}\
