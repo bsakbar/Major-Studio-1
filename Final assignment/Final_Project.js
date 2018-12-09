@@ -245,7 +245,7 @@ function submit_arrow() {
   document.getElementById("population_year1_value").innerHTML = parseInt(country_population[year1]).toLocaleString()
   document.getElementById("population_year2").innerHTML = year2
   document.getElementById("population_year2_value").innerHTML = parseInt(country_population[year2]).toLocaleString()
-  document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()
+  document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()+ "km"
   document.getElementById("map").style.display = "none"
   // d="M1367.2,485.2v18l13,13h193v-18l-13,-13Z"
 
