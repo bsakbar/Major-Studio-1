@@ -17,6 +17,7 @@ d3.json('data/africa.geo.json').then((geojson) => {
           let container = map.getCanvasContainer()
           let svg = d3.select(container).append("svg")
 
+
         let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
         let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
       // #091116 < dark navy / #0a141c < navy / #f93d3d < red
@@ -34,6 +35,10 @@ d3.json('data/africa.geo.json').then((geojson) => {
                   d3.select("#hover")
                       .text(d.properties.name);
                   d3.select('#hover').attr("fill-opacity", 1);
+              })
+              .on('click', function(d) {
+                  d3.select("#click")
+                      .text(document.getElementById("country_textbox").value = d.properties.name);
               })
               .on('mouseout', function() {
                   d3.select(this).attr("fill", "#0a141c", 0);
@@ -78,11 +83,11 @@ d3.csv("data/access_electricity_data.csv", function(data) {
     electricity_data.push(data)
 });
 var primary_education = [];
-d3.csv("data/Primary_Countries.csv", function(data) {
+d3.csv("data/Education/Countries/Primary_Countries_prc.csv", function(data) {
     primary_education.push(data)
 });
 var secondary_education = [];
-d3.csv("data/Secondary_Countries.csv", function(data) {
+d3.csv("data/Education/Countries/Secondary_Countries_prc.csv", function(data) {
     secondary_education.push(data)
 });
 var population = [];
@@ -199,6 +204,7 @@ function submit_arrow() {
      }
   }
   if(school == "PRIMARY"){
+    school = "        PRIMARY"
     for (let i=0; i<primary_education.length; i++){
       if (country == primary_education[i]["Country"]){
         country_education.push(primary_education[i])
@@ -244,6 +250,8 @@ function submit_arrow() {
       country_landarea = landarea[i]
     }
   }
+  console.log(education_year1)
+  console.log(education_year2)
 
   document.getElementById("country_title").innerHTML = country_electricity["Country_Name"]
   document.getElementById("country_desc").innerHTML = country_electricity["Country_Name"]
@@ -261,10 +269,12 @@ function submit_arrow() {
 
   document.getElementById("year1_access_electricity").innerHTML = parseFloat(country_electricity[year1]).toFixed(2) + "%"
   document.getElementById("year2_access_electricity").innerHTML = parseFloat(country_electricity[year2]).toFixed(2) + "%"
-  document.getElementById("year1_males").innerHTML = parseInt(education_year1['male']).toLocaleString()
-  document.getElementById("year1_females").innerHTML = parseInt(education_year1['female']).toLocaleString()
-  document.getElementById("year2_males").innerHTML = parseInt(education_year2['male']).toLocaleString()
-  document.getElementById("year2_females").innerHTML = parseInt(education_year2['female']).toLocaleString()
+  document.getElementById("year1_males").innerHTML = parseInt(education_year1['male']).toFixed(2) + "%"
+  document.getElementById("year1_females").innerHTML = parseInt(education_year1['female']).toFixed(2) + "%"
+  document.getElementById("year2_males").innerHTML = parseInt(education_year2['male']).toFixed(2) + "%"
+  document.getElementById("year2_females").innerHTML = parseInt(education_year2['female']).toFixed(2) + "%"
+
+
 
   // Population
   var popyear1 = parseInt(country_population[year1])
