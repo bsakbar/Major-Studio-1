@@ -187,119 +187,190 @@ function submit_arrow() {
     elements[i].style.display = "none"
   }
 
-  //insert delay here
-  var country_electricity, country_population, country_landarea;
-  var country_education = [];
-  var country = document.getElementById("country_textbox").value
-  for (let i=0; i<electricity_data.length; i++){
-    if (country == electricity_data[i]["Country_Name"]){
-      country_electricity = electricity_data[i]
-    }
-  }
-
-  let schools = document.getElementsByName("school");
-  for (var i=0; i<schools.length; i++){
-     if (schools[i].checked == true){
-       var school = schools[i].value
-     }
-  }
-  if(school == "PRIMARY"){
-    school = "        PRIMARY"
-    for (let i=0; i<primary_education.length; i++){
-      if (country == primary_education[i]["Country"]){
-        country_education.push(primary_education[i])
+  var country = country_match(document.getElementById("country_textbox").value)
+  if (country){
+    
+    var country_electricity, country_population, country_landarea;
+    var country_education = [];
+    for (let i=0; i<electricity_data.length; i++){
+      if (country == electricity_data[i]["Country_Name"]){
+        country_electricity = electricity_data[i]
       }
     }
-  }else if(school == "SECONDARY"){
-    for (let i=0; i<secondary_education.length; i++){
-      if (country == secondary_education[i]["Country"]){
-        country_education.push(secondary_education[i])
+
+    var school = false
+    let schools = document.getElementsByName("school");
+    for (var i=0; i<schools.length; i++){
+       if (schools[i].checked == true){
+         var school = schools[i].value
+       }
+    }
+    if (!school){
+      alert("Please select PRIMARY or SECONDARY education from the Education Tab")
+      close_button()
+      document.getElementById("country_textbox").value = country;
+    } else {
+
+      if(school == "PRIMARY"){
+        school = "PRIMARY"
+        for (let i=0; i<primary_education.length; i++){
+          if (country == primary_education[i]["Country"]){
+            country_education.push(primary_education[i])
+          }
+        }
+      }else if(school == "SECONDARY"){
+        for (let i=0; i<secondary_education.length; i++){
+          if (country == secondary_education[i]["Country"]){
+            country_education.push(secondary_education[i])
+          }
+        }
+      }
+
+      var year1 = parseInt(document.getElementById("YearRange1").value) + 2000;
+      var year2 = parseInt(document.getElementById("YearRange2").value) + 2000;
+
+      var gender = false
+      let genders = document.getElementsByName("gender")
+      for (var i=0; i<genders.length; i++){
+         if (genders[i].checked == true){
+           var gender = genders[i].value
+         }
+      }
+
+      if (!gender){
+      alert("Please select a Gender from the Education Tab")
+      close_button()
+      document.getElementById("country_textbox").value = country;
+      } else {
+
+        var this_gender, education_year1 = {}, education_year2 = {}
+
+        for (let i=0; i<country_education.length; i++){
+          this_gender = country_education[i]["Indicator"].split(",")[1].split(" ")[1]
+
+          if(country_education[i]["Year"] == year1){
+            education_year1[this_gender] = country_education[i]["Value"]
+          }
+          else if(country_education[i]["Year"] == year2){
+            education_year2[this_gender] = country_education[i]["Value"]
+          }
+        }
+
+        for (let i=0; i<population.length; i++){
+          if (country == population[i]["Country Name"]){
+            country_population = population[i]
+          }
+        }
+        for (let i=0; i<landarea.length; i++){
+          if (country == landarea[i]["Country Name"]){
+            country_landarea = landarea[i]
+          }
+        }
+
+
+        document.getElementById("country_title").innerHTML = country_electricity["Country_Name"]
+        document.getElementById("country_desc").innerHTML = country_electricity["Country_Name"]
+
+        document.getElementById("country_year1_main").innerHTML = year1
+        document.getElementById("country_year2_main").innerHTML = year2
+        document.getElementById("country_year1_bracket").innerHTML = year1
+        document.getElementById("country_year2_bracket").innerHTML = year2
+        document.getElementById("country_year1_desc").innerHTML = year1
+        document.getElementById("country_year2_desc").innerHTML = year2
+
+        // document.getElementById("region_bracket").innerHTML = region.toUpperCase()
+        document.getElementById("school_bracket").innerHTML = school.toUpperCase() + " SCHOOL"
+        document.getElementById("gender_bracket").innerHTML = gender.toUpperCase()
+
+        var elec1 = parseFloat(country_electricity[year1]).toFixed(2)
+        var elec2 = parseFloat(country_electricity[year2]).toFixed(2)
+        var edu1m = parseFloat(education_year1['male']).toFixed(2)
+        var edu2m = parseFloat(education_year2['male']).toFixed(2)
+        var edu1f = parseFloat(education_year1['female']).toFixed(2)
+        var edu2f = parseFloat(education_year2['female']).toFixed(2)
+        if (isNaN(elec1)){ elec1 = "--" }
+        if (isNaN(elec2)){ elec2 = "--" }
+        if (isNaN(edu1m)){ edu1m = "--" }
+        if (isNaN(edu2m)){ edu2m = "--" }
+        if (isNaN(edu1f)){ edu1f = "--" }
+        if (isNaN(edu2f)){ edu2f = "--" }
+        console.log(edu1m,edu2m,edu1f,edu2f)
+
+        document.getElementById("year1_access_electricity").innerHTML = elec1 + "%"
+        document.getElementById("year2_access_electricity").innerHTML = elec2 + "%"
+        document.getElementById("year1_males").innerHTML = edu1m + "%"
+        document.getElementById("year2_males").innerHTML = edu1m + "%"
+        document.getElementById("year1_females").innerHTML = edu1f + "%"
+        document.getElementById("year2_females").innerHTML = edu2f + "%"
+
+        document.getElementById("year1_males_plot").setAttribute('d', "M464,555v"+(edu1m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu1m/100*120)+"c2.3-2.3,3.7-3.7,6-6H464z")
+        document.getElementById("year2_males_plot").setAttribute('d', "M464,784v"+(edu2m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu2m/100*120)+"c2.3-2.3,3.7-3.7,6-6H464z")
+        document.getElementById("year1_females_plot").setAttribute('d', "M437,555v"+(edu1f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu1f/100*120)+"c2.3-2.3,3.7-3.7,6-6H437z")
+        document.getElementById("year2_females_plot").setAttribute('d', "M437,784v"+(edu2f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu2f/100*120)+"c2.3-2.3,3.7-3.7,6-6H437z")
+        document.getElementById("year1_electricity_plot").setAttribute('d', "M411,555v"+(elec1/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(elec1/100*120)+"c2.3-2.3,3.7-3.7,6-6H411z")
+        document.getElementById("year2_electricity_plot").setAttribute('d', "M411,784v"+(elec2/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(elec2/100*120)+"2.3-2.3,3.7-3.7,6-6H411z")
+
+
+        // Population
+        var popyear1 = parseInt(country_population[year1])
+        var popyear2 = parseInt(country_population[year2])
+        var popyear1_d = "M1367.2,445.9v18l13,13h"+(popyear1/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z" 
+        var popyear2_d = "M1367.2,485.2v18l13,13h"+(popyear2/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z"
+        
+        document.getElementById("population_year1").innerHTML = year1
+        document.getElementById("population_year1_value").innerHTML = popyear1.toLocaleString()
+        document.getElementById("population_box_year1").setAttribute('d', popyear1_d)
+        document.getElementById("population_year2").innerHTML = year2
+        document.getElementById("population_year2_value").innerHTML = popyear2.toLocaleString()
+        document.getElementById("population_box_year2").setAttribute('d', popyear2_d)
+
+        document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()
+        document.getElementById("map").style.display = "none"
+
+        var elements = document.getElementsByClassName("country-svg");
+        elements['country-map'].src="SVG/"+country_electricity["Country_Name"]+".svg"
+
+        for (let i=0; i<elements.length; i++){
+          elements[i].style.display = "block"
+        }
       }
     }
+  } else {
+    alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
+    close_button()
   }
-
-  var year1 = parseInt(document.getElementById("YearRange1").value) + 2000;
-  var year2 = parseInt(document.getElementById("YearRange2").value) + 2000;
-
-  let genders = document.getElementsByName("gender")
-  for (var i=0; i<genders.length; i++){
-     if (genders[i].checked == true){
-       var gender = genders[i].value
-     }
-  }
-  var this_gender, education_year1 = {}, education_year2 = {}
-
-  for (let i=0; i<country_education.length; i++){
-    this_gender = country_education[i]["Indicator"].split(",")[1].split(" ")[1]
-
-    if(country_education[i]["Year"] == year1){
-      education_year1[this_gender] = country_education[i]["Value"]
-    }
-    else if(country_education[i]["Year"] == year2){
-      education_year2[this_gender] = country_education[i]["Value"]
-    }
-  }
-
-  for (let i=0; i<population.length; i++){
-    if (country == population[i]["Country Name"]){
-      country_population = population[i]
-    }
-  }
-  for (let i=0; i<landarea.length; i++){
-    if (country == landarea[i]["Country Name"]){
-      country_landarea = landarea[i]
-    }
-  }
-  console.log(education_year1)
-  console.log(education_year2)
-
-  document.getElementById("country_title").innerHTML = country_electricity["Country_Name"]
-  document.getElementById("country_desc").innerHTML = country_electricity["Country_Name"]
-
-  document.getElementById("country_year1_main").innerHTML = year1
-  document.getElementById("country_year2_main").innerHTML = year2
-  document.getElementById("country_year1_bracket").innerHTML = year1
-  document.getElementById("country_year2_bracket").innerHTML = year2
-  document.getElementById("country_year1_desc").innerHTML = year1
-  document.getElementById("country_year2_desc").innerHTML = year2
-
-  // document.getElementById("region_bracket").innerHTML = region.toUpperCase()
-  document.getElementById("school_bracket").innerHTML = school.toUpperCase() + " SCHOOL"
-  document.getElementById("gender_bracket").innerHTML = gender.toUpperCase()
-
-  document.getElementById("year1_access_electricity").innerHTML = parseFloat(country_electricity[year1]).toFixed(2) + "%"
-  document.getElementById("year2_access_electricity").innerHTML = parseFloat(country_electricity[year2]).toFixed(2) + "%"
-  document.getElementById("year1_males").innerHTML = parseInt(education_year1['male']).toFixed(2) + "%"
-  document.getElementById("year1_females").innerHTML = parseInt(education_year1['female']).toFixed(2) + "%"
-  document.getElementById("year2_males").innerHTML = parseInt(education_year2['male']).toFixed(2) + "%"
-  document.getElementById("year2_females").innerHTML = parseInt(education_year2['female']).toFixed(2) + "%"
-
-
-
-  // Population
-  var popyear1 = parseInt(country_population[year1])
-  var popyear2 = parseInt(country_population[year2])
-  var popyear1_d = "M1367.2,445.9v18l13,13h"+(popyear1/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z" 
-  var popyear2_d = "M1367.2,485.2v18l13,13h"+(popyear2/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z"
-  
-  document.getElementById("population_year1").innerHTML = year1
-  document.getElementById("population_year1_value").innerHTML = popyear1.toLocaleString()
-  document.getElementById("population_box_year1").setAttribute('d', popyear1_d)
-  document.getElementById("population_year2").innerHTML = year2
-  document.getElementById("population_year2_value").innerHTML = popyear2.toLocaleString()
-  document.getElementById("population_box_year2").setAttribute('d', popyear2_d)
-
-  document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()
-  document.getElementById("map").style.display = "none"
-
-  var elements = document.getElementsByClassName("country-svg");
-  elements['country-map'].src="SVG/"+country_electricity["Country_Name"]+".svg"
-
-  for (let i=0; i<elements.length; i++){
-    elements[i].style.display = "block"
-  }
-
 }
+
+
+// function error_handeling(country_electricity,education_year1,education_year2,school,gender,country_population,year1,year2){
+//   if (){
+//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
+//     close_button()
+//     return false
+//   } else if () {
+//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
+//     close_button()
+//     return false
+//   } else if () {
+//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
+//     close_button()
+//     return false
+//   } else if () {
+//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
+//     close_button()
+//     return false
+//   } else if (country_population[year1] == NaN) {
+//     alert("We don not have population data for "+year1);
+//     close_button()
+//     return false
+//   } else if (country_population[year2] == NaN) {
+//     alert("We don not have population data for "+year2);
+//     close_button()
+//     return false
+//   } else {
+//     return true;
+//   }
+// }
 
 
 function close_button(){
@@ -346,18 +417,6 @@ function year2_slider(){
   document.getElementById('year2_slider_value').innerHTML = (2000+Number(year)).toLocaleString().split(',').join('')
   document.getElementById("year2_slider_location").setAttribute('transform', location)
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -462,9 +521,24 @@ function autocomplete(inp, arr) {
 }
 
 /*An array containing all the country names in the world:*/
-var countries = ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central Arfrican Republic","Chad","Comoros","Democratic Republic of Congo","Congo","Cote D Ivoire","Djibouti","Egypt","El Salvador","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Nauro","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"];
+var countries = ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central Arfrican Republic","Chad","Comoros","Democratic Republic of Congo","Congo","Cote d'Ivoire","Djibouti","Egypt","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea-Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Nauro","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"];
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 window.onload=function(){
     autocomplete(document.getElementById("country_textbox"), countries);
+}
+
+
+function country_match(country){
+  for (let i=0; i<countries.length; i++){
+    if (country == countries[i]){
+      return electricity_data[i]["Country_Name"]
+    }
+  }
+  for (let i=0; i<electricity_data.length; i++){
+    if (country == electricity_data[i]["Country_Name"]){
+      return country
+    }
+  }
+  return false
 }
