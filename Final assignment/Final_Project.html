@@ -167,11 +167,12 @@
             padding: 0px;
         }
 
-        /*.autocomplete {
-          the container must be positioned relative:
-          position: relative;
+        .autocomplete {
+          /*the container must be positioned relative:*/
+          position: absolute;
           display: inline-block;
-        }*/
+          z-index: 3
+        }
 
         /*this is copied from textbox style for comparison with autocomplete elements
         position:absolute; z-index:2; outline:none;
@@ -187,14 +188,14 @@
         margin: 700px 120px;
         padding: 10px 10px;*/
 
-        /*
+        
         .autocomplete-items {
           position: absolute;
           border: 1px solid #d4d4d4;
           border-bottom: none;
           border-top: none;
           z-index: 99;
-          position the autocomplete items to be the same width as the container:
+          /*position the autocomplete items to be the same width as the container:*/
           top: 100%;
           left: 0;
           right: 0;
@@ -208,16 +209,16 @@
         }
 
         .autocomplete-items div:hover {
-          when hovering an item:
+          /*when hovering an item:*/
           background-color: #e9e9e9;
         }
 
         .autocomplete-active {
-          when navigating through the items using the arrow keys:
+          /*when navigating through the items using the arrow keys:*/
           background-color: DodgerBlue !important;
           color: #ffffff;
         }
-        /*
+        
     </style>
 </head>
 
@@ -227,8 +228,8 @@
     <div class="right-arrow-click">
     <!--bottom filter box-->
         <!--Year range  -->
-         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider" value="6" id="YearRange1">
-         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider_2" value="10" id="YearRange2">
+         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider" value="6" id="YearRange1" onchange="year1_slider()">
+         <input style="position:absolute; z-index:2; outline:none;" type="range" min="0" max="16" class="Timeslider_2" value="10" id="YearRange2" onchange="year2_slider()">
 
    <!--<input " margin-top: 10px;margin-left:10px"; type="button" value="test" onclick="myFunction()"/>-->
     <div class="autocomplete" style="width:200px;">
@@ -709,6 +710,13 @@
        </text>
        <text class="c" transform="translate(560.947 624.906) rotate(-90)">
           <tspan x="0" y="0">2016</tspan>
+       </text>
+
+       <text class="c" id="year1_slider_location" transform="translate(287.107 624.906) rotate(-90)">
+          <tspan x="0" y="0" id="year1_slider_value">2006</tspan>
+       </text>
+       <text class="c" id="year2_slider_location" transform="translate(396.643 624.906) rotate(-90)">
+          <tspan x="0" y="0" id="year2_slider_value">2010</tspan>
        </text>
 
        <!--Years lines -->

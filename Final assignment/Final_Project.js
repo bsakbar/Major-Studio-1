@@ -320,10 +320,44 @@ function close_button(){
   document.getElementById("YearRange2").value = "10";
   document.getElementById("YearRange").value = "5";
 
+  document.getElementById('year1_slider_value').innerHTML = 2006
+  document.getElementById("year1_slider_location").setAttribute('transform', "translate(287.107 624.906) rotate(-90)")
+  document.getElementById('year2_slider_value').innerHTML = 2010
+  document.getElementById("year2_slider_location").setAttribute('transform', "translate(396.643 624.906) rotate(-90)")
+
   right_arrow()
   electricity_tab()
 
 }
+
+
+function year1_slider(){
+  var year = document.getElementById("YearRange1").value
+  var newYear = 122.804 + 27.3839*year
+  var location = "translate("+newYear+" 624.906) rotate(-90)"
+  document.getElementById('year1_slider_value').innerHTML = (2000+Number(year)).toLocaleString().split(',').join('')
+  document.getElementById("year1_slider_location").setAttribute('transform', location)
+}
+
+function year2_slider(){
+  var year = document.getElementById("YearRange2").value
+  var newYear = 122.804 + 27.3839*year
+  var location = "translate("+newYear+" 624.906) rotate(-90)"
+  document.getElementById('year2_slider_value').innerHTML = (2000+Number(year)).toLocaleString().split(',').join('')
+  document.getElementById("year2_slider_location").setAttribute('transform', location)
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -431,8 +465,6 @@ function autocomplete(inp, arr) {
 var countries = ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central Arfrican Republic","Chad","Comoros","Democratic Republic of Congo","Congo","Cote D Ivoire","Djibouti","Egypt","El Salvador","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Nauro","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"];
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-// window.onload=function(){
-//     autocomplete(document.getElementById("country_textbox"), countries);
-// }
-
-
+window.onload=function(){
+    autocomplete(document.getElementById("country_textbox"), countries);
+}
