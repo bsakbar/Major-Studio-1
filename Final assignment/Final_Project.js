@@ -99,30 +99,6 @@ d3.csv("data/Land_Area.csv", function(data) {
     landarea.push(data)
 });
 
-// function country_match(){
-  // var validCounries = ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central Arfrican Republic","Chad","Comoros","Democratic Republic of Congo","Congo","Cote D Ivoire","Djibouti","Egypt","El Salvador","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Nauro","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"];
-  // for (let i=0; i<electricity_data.length; i++){
-  //   validCounries.push(electricity_data[i]["Country_Name"])
-  // }
-  // previousValue = "";
-  
-  // $('input#country_textbox').autocomplete({
-  //     autoFocus: true,
-  //     source: validOptions
-  // }).keyup(function() {
-  //     var isValid = false;
-  //     for (i in validOptions) {
-  //         if (validOptions[i].toLowerCase().match(this.value.toLowerCase())) {
-  //             isValid = true;
-  //         }
-  //     }
-  //     if (!isValid) {
-  //         this.value = previousValue
-  //     } else {
-  //         previousValue = this.value;
-  //     }
-  // });
-// }
 
 function electricity_tab() {
   var elements = document.getElementsByClassName("education-tab");
@@ -212,7 +188,6 @@ function submit_arrow() {
     } else {
 
       if(school == "PRIMARY"){
-        school = "PRIMARY"
         for (let i=0; i<primary_education.length; i++){
           if (country == primary_education[i]["Country"]){
             country_education.push(primary_education[i])
@@ -294,21 +269,21 @@ function submit_arrow() {
         if (isNaN(edu2m)){ edu2m = "--" }
         if (isNaN(edu1f)){ edu1f = "--" }
         if (isNaN(edu2f)){ edu2f = "--" }
-        console.log(edu1m,edu2m,edu1f,edu2f)
+        // console.log(edu1m,edu2m,edu1f,edu2f)
 
         document.getElementById("year1_access_electricity").innerHTML = elec1 + "%"
         document.getElementById("year2_access_electricity").innerHTML = elec2 + "%"
         document.getElementById("year1_males").innerHTML = edu1m + "%"
-        document.getElementById("year2_males").innerHTML = edu1m + "%"
+        document.getElementById("year2_males").innerHTML = edu2m + "%"
         document.getElementById("year1_females").innerHTML = edu1f + "%"
         document.getElementById("year2_females").innerHTML = edu2f + "%"
-
-        document.getElementById("year1_males_plot").setAttribute('d', "M464,555v"+(edu1m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu1m/100*120)+"c2.3-2.3,3.7-3.7,6-6H464z")
-        document.getElementById("year2_males_plot").setAttribute('d', "M464,784v"+(edu2m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu2m/100*120)+"c2.3-2.3,3.7-3.7,6-6H464z")
-        document.getElementById("year1_females_plot").setAttribute('d', "M437,555v"+(edu1f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu1f/100*120)+"c2.3-2.3,3.7-3.7,6-6H437z")
-        document.getElementById("year2_females_plot").setAttribute('d', "M437,784v"+(edu2f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu2f/100*120)+"c2.3-2.3,3.7-3.7,6-6H437z")
-        document.getElementById("year1_electricity_plot").setAttribute('d', "M411,555v"+(elec1/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(elec1/100*120)+"c2.3-2.3,3.7-3.7,6-6H411z")
-        document.getElementById("year2_electricity_plot").setAttribute('d', "M411,784v"+(elec2/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(elec2/100*120)+"2.3-2.3,3.7-3.7,6-6H411z")
+        
+        document.getElementById("year1_males_plot").setAttribute('d', "M447,681v-"+(edu1m/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu1m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year1_females_plot").setAttribute('d', "M420,681v-"+(edu1f/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu1f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year1_electricity_plot").setAttribute('d', "M394,681v-"+(elec1/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(elec1/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year2_males_plot").setAttribute('d', "M447,910v-"+(edu2m/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu2m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year2_females_plot").setAttribute('d', "M420,910v-"+(edu2f/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu2f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year2_electricity_plot").setAttribute('d', "M394,910v-"+(elec2/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(elec2/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
 
 
         // Population
@@ -323,6 +298,9 @@ function submit_arrow() {
         document.getElementById("population_year2").innerHTML = year2
         document.getElementById("population_year2_value").innerHTML = popyear2.toLocaleString()
         document.getElementById("population_box_year2").setAttribute('d', popyear2_d)
+        
+        var population_desc = "The population has incresed by "+parseInt(100*Math.abs(popyear1-popyear2)/Math.min(popyear1,popyear2))+"% in "+Math.abs(year1-year2)+" years"
+        document.getElementById("population_desc").innerHTML = population_desc
 
         document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()
         document.getElementById("map").style.display = "none"
@@ -336,7 +314,7 @@ function submit_arrow() {
       }
     }
   } else {
-    alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
+    alert("Please check Country Name and fill all Electrcity and Education inputs");
     close_button()
   }
 }
