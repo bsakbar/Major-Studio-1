@@ -171,7 +171,8 @@
           /*the container must be positioned relative:*/
           position: absolute;
           display: inline-block;
-          z-index: 3
+          z-index: 3;
+
         }
 
         /*this is copied from textbox style for comparison with autocomplete elements
@@ -188,13 +189,16 @@
         margin: 700px 120px;
         padding: 10px 10px;*/
 
-        
+
         .autocomplete-items {
+          width: 185px;
+
+          margin: 732px 120px;
           position: absolute;
-          border: 1px solid #d4d4d4;
+          border: none;
           border-bottom: none;
           border-top: none;
-          z-index: 99;
+          z-index: 3;
           /*position the autocomplete items to be the same width as the container:*/
           top: 100%;
           left: 0;
@@ -202,15 +206,20 @@
         }
 
         .autocomplete-items div {
-          padding: 10px;
+          padding: 8px;
+          margin: 0px 0px 0px 0px;
           cursor: pointer;
-          background-color: #fff;
-          border-bottom: 1px solid #d4d4d4;
+          background-color: #080f17;
+          border-bottom: 0px solid #d4d4d4;
+          font-family: 'Miriam Libre', sans-serif;
+          font-size: 10px;
+          color: #f93d3d;
+
         }
 
         .autocomplete-items div:hover {
           /*when hovering an item:*/
-          background-color: #e9e9e9;
+          background-color: #0a141c;
         }
 
         .autocomplete-active {
@@ -218,7 +227,10 @@
           background-color: DodgerBlue !important;
           color: #ffffff;
         }
-        
+
+
+
+
     </style>
 </head>
 
@@ -264,7 +276,7 @@
         display: inline-block;
         margin: 824px 127px;
         cursor: pointer;
-        "type="button" name="region" />
+        "type="button" name="region"/>
 
         <!--West Africa Button-->
         <input style="position:absolute; z-index:2; outline:none;
@@ -906,6 +918,12 @@
             .st1{fill:#E68F89;}
             .st2{fill:#E34C52;}
             .st3{fill:#FF1830;}
+
+            .st4{fill:none;stroke:#F93D3D;stroke-width:0.5;stroke-miterlimit:10;}
+          	.st5{fill:#F93D3D;}
+          	.st6{font-family:'MiriamLibre-Regular';}
+          	.st7{font-size:14.0997px;}
+
     </style>
       <linearGradient id="a" x1="0.959" y1="-0.108" x2="0.034" y2="1.116" gradientUnits="objectBoundingBox">
          <stop offset="0" stop-color="#060e16"/>
@@ -1079,9 +1097,48 @@
       <path class="st1" id="year2_males_plot" d="M464,784v120c-2.3,2.3-3.7,3.7-6,6h-11v-120c2.3-2.3,3.7-3.7,6-6H464z"/>
       <path class="st2" id="year2_females_plot" d="M437,784v120c-2.3,2.3-3.7,3.7-6,6h-11v-120c2.3-2.3,3.7-3.7,6-6H437z"/>
       <path class="st3" id="year2_electricity_plot" d="M411,784v120c-2.3,2.3-3.7,3.7-6,6h-11v-120c2.3-2.3,3.7-3.7,6-6H411z"/>
-   </g>
-</svg>
 
-    <div id="map"></div>
+      <!-- colored buttons -->
+      <g>
+      	<path class="st4" d="M117.9,821.4H243c3.7,3.7,5.7,5.7,9.4,9.4v25.3l-125.1-0.1c-3.7-3.7-5.7-5.7-9.4-9.4V821.4z"/>
+      </g>
+      <g>
+      	<path class="st4" d="M259.2,821.4h111c3.7,3.7,5.7,5.7,9.4,9.4v25.3l-111-0.1c-3.7-3.7-5.7-5.7-9.4-9.4V821.4z"/>
+      </g>
+      <g>
+      	<text transform="matrix(1 0 0 1 133.9453 843.9785)" class="st5 st6 st7">NORTH AFIRCA</text>
+      </g>
+      <g>
+      	<path class="st4" d="M117.9,863.7h139.2c3.7,3.7,5.7,5.7,9.4,9.4v25.3l-139.2-0.1c-3.7-3.7-5.7-5.7-9.4-9.4V863.7z"/>
+      </g>
+      <g>
+      	<text transform="matrix(1 0 0 1 137.9453 886.2656)" class="st5 st6 st7">CENTRAL AFIRCA</text>
+      </g>
+      <g>
+      	<path class="st4" d="M117.9,906h176.8c3.7,3.7,5.7,5.7,9.4,9.4v25.3l-176.8-0.1c-3.7-3.7-5.7-5.7-9.4-9.4V906z"/>
+      </g>
+      <g>
+      	<text transform="matrix(1 0 0 1 137.9453 928.5527)" class="st5 st6 st7">SUB-SAHARAN AFIRCA</text>
+      </g>
+      <g>
+      	<path class="st4" d="M272.5,863.7h148.6c3.7,3.7,5.7,5.7,9.4,9.4v25.3l-148.6-0.1c-3.7-3.7-5.7-5.7-9.4-9.4V863.7z"/>
+      </g>
+      <g>
+      	<text transform="matrix(1 0 0 1 290.6152 886.2656)" class="st5 st6 st7">SOUTHERN AFIRCA</text>
+      </g>
+      <g>
+      	<text transform="matrix(1 0 0 1 275.5449 843.9785)" class="st5 st6 st7">WEST AFIRCA</text>
+      </g>
+      <g>
+      	<path class="st4" d="M386.2,821.4h111c3.7,3.7,5.7,5.7,9.4,9.4v25.3l-111-0.1c-3.7-3.7-5.7-5.7-9.4-9.4V821.4z"/>
+      </g>
+      <g>
+      	<text transform="matrix(1 0 0 1 405.5449 843.9785)" class="st5 st6 st7">EAST AFIRCA</text>
+      </g>
+
+         </g>
+      </svg>
+
+          <div id="map"></div>
 
 </body>
