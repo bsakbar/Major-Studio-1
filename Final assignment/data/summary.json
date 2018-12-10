@@ -3,16 +3,20 @@
 		{
 			"region" : "North Africa",
 			"countries" : ["Algeria", "Egypt","Libya","Morocco","Tunisia"],
-			"summary" : "NA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
-			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
-			people and contributes to more peaceful societies."
+			"summary" : "Most countries in North Africa have made significant progress toward increasing
+			children’s school enrolment, attendance and completion. However, access remains unequal and the quality of education is a
+			major issue in the region. UNICEF is working with governments to tackle constraints to the effective delivery of quality education
+			services for all children.  Central to UNICEF's approach to strengthening education systems is improving the availability and use of data.
+			UNICEF does this by advocating for the empowerment of schools to collect, analyze, monitor, and act on data to address equity, learning and system efficiency challenges.",
+			"source": "https://www.unicef.org/mena/education"
 		},
 		{
 			"region" : "West Africa",
 			"countries" : ["Benin", "Burkina Faso","Cape Verde","Côte d'Ivoire","Gambia","Ghana","Guinea","Guinea-Bissau","Liberia","Mali","Mauritania","Niger","Nigeria","Senegal","Sierra Leone","Togo"],
-			"summary" : "WA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
-			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
-			people and contributes to more peaceful societies."
+			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance
+			of high-quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge,
+			values, and attitudes required for success in the 21st century.",
+			"source": "https://www.unicef.org/wca/what-we-do/education"
 		},
 		{
 			"region" : "East Africa",
@@ -31,7 +35,7 @@
 		{
 			"region" : "Southern Africa",
 			"countries" : ["Botswana", "Swaziland","Lesotho","Mozambique","Madagascar","Zambia","Zimbabwe","Malawi","Namibia","South Africa","Angola"],
-			"summary" : "SA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty. 
+			"summary" : "SA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
 			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
 			people and contributes to more peaceful societies."
 		}
