@@ -34,6 +34,14 @@
             display: block;
 
         }
+        #map2 {
+            position:fixed;
+            width:100%;
+            height: 100%;
+            margin: auto auto;
+            display: none;
+
+        }
         svg {
             width:1920px;
             height: 1080px;
@@ -276,7 +284,7 @@
         display: inline-block;
         margin: 824px 127px;
         cursor: pointer;
-        "type="button" name="region"/>
+        "type="button" name="region" onclick="regional_map('Northern Africa')"/>
 
         <!--West Africa Button-->
         <input style="position:absolute; z-index:2; outline:none;
@@ -308,7 +316,7 @@
         display: inline-block;
         margin: 824px 395px;
         cursor: pointer;
-        "type="button" name="region" />
+        "type="button" name="region" onclick="regional_map('Eastern Africa')" />
 
          <!--Central Africa Button-->
         <input style="position:absolute; z-index:2; outline:none;
@@ -324,7 +332,7 @@
         display: inline-block;
         margin: 867px 130px;
         cursor: pointer;
-        "type="button" name="region" />
+        "type="button" name="region" onclick="regional_map('Middle Africa')"/>
 
         <!--Southern Africa Button-->
         <input style="position:absolute; z-index:2; outline:none;
@@ -340,7 +348,7 @@
         display: inline-block;
         margin: 867px 285px;
         cursor: pointer;
-        "type="button" name="region" />
+        "type="button" name="region" onclick="regional_map('Southern Africa')"/>
 
           <!--Sub-Saharan Africa Button-->
         <input style="position:absolute; z-index:2; outline:none;
@@ -488,7 +496,7 @@
         "type="button" name="closebutton" class="country-svg" onclick="close_button()"/>
 
         <!--minimize country details-->
-        <input style="position:absolute; z-index:2; outline:none;
+        <!-- <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
         font-family: 'Miriam Libre', sans-serif;
@@ -501,7 +509,7 @@
         display: none;
         margin: 263px 1728px;
         cursor: pointer;
-        "type="button" name="closebutton" class="country-svg"/>
+        "type="button" name="closebutton" class="country-svg"/> -->
 
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
@@ -633,7 +641,7 @@
     <rect class="a" width="1921" height="1080" transform="translate(0 0.5)"/>
     <path class="b" d="M1332,1081.5l-1332-1V.5L376.5,0Z"/>
     <text class="c" transform="translate(1711.068 999.111)">
-        <tspan x="0" y="35">COPYRIGHTS | DATA SOURCE</tspan>
+        <!-- <tspan x="0" y="35">COPYRIGHTS | DATA SOURCE</tspan> -->
     </text>
     <text class="d" style= "font-size:42px;
         letter-spacing: -1px;font-weight:700;" " transform="translate(71.703 105.082)">
@@ -953,12 +961,12 @@
       <line class="f2" x2="0.3" y2="368.3" transform="translate(1230.2 298.7)"/>
       <rect class="g2" width="1086" height="185.9" transform="translate(682 756.1)"/>
       <text class="paragraph" transform="translate(682.005 775.846)">
-         <tspan x="0" y="0">Most countries in North Africa have made significant progress toward increasing children’s school enrolment, attendance and completion. </tspan>
-         <tspan x="0" y="27"> However, access remains unequal and the quality of education is a major issue in the region. UNICEF is working with governments to</tspan>
-         <tspan x="0" y="54"> tackle constraints to the effective delivery of quality education services for all children. Central to UNICEF's approach to strengthening</tspan>
-         <tspan x="0" y="81"> education systems is improving the availability and use of data. UNICEF does this by advocating for the empowerment of schools to collect,</tspan>
-         <tspan x="0" y="108">analyze, monitor, and act on data to address equity, learning and system efficiency challenges.</tspan>
-         <tspan font-size="12"text-decoration:underline; fill="#f93d3d" x="0" y="145">Data Source</tspan>
+         <tspan x="0" y="0">The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,  </tspan>
+         <tspan x="0" y="27"> such as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located  </tspan>
+         <tspan x="0" y="54"> far away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe </tspan>
+         <tspan x="0" y="81"> water and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers, </tspan>
+         <tspan x="0" y="108">coupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA. </tspan>
+         <tspan font-size="12"text-decoration:underline; fill="#f93d3d" x="0" y="145">Source</tspan>
       </text>
       <path class="i2" d="M1033.7,442.1"/>
       <text class="j2" transform="translate(912.615 325.266)">
@@ -1064,9 +1072,9 @@
       <path class="ab2" d="M1771,269.3l8.6,8.6-8.6,8.6"/>
       <path class="ab2" d="M1788.2,286.5l-8.6-8.6,8.6-8.6"/>
       <line class="f2" x1="0.4" y2="639" transform="translate(611.5 298)"/>
-      <line class="ab2" x1="21" transform="translate(1729.5 277.5)"/>
+      <!-- <line class="ab2" x1="21" transform="translate(1729.5 277.5)"/> -->
       <text class="ac2" transform="translate(138.206 387.798)">
-         <tspan x="0" y="0" id="region_bracket">CENTRAL AFRICA</tspan>
+         <tspan x="0" y="0" id="region_bracket">EASTERN AFRICA</tspan>
       </text>
       <text class="ac2" transform="translate(255.411 387.798)">
          <tspan x="0" y="0" id="country_year1_bracket">2006</tspan>
@@ -1116,5 +1124,6 @@
       </svg>
 
           <div id="map"></div>
+          <div id="map2"></div>
 
 </body>
