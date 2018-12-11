@@ -2,11 +2,10 @@ d3.json('data/africa.geo.json').then((geojson) => {
 
           // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
           mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
-
           // https://www.mapbox.com/mapbox-gl-js/api/#map
           let map = new mapboxgl.Map({
               container: 'map',
-              style: 'mapbox://styles/bsakbar/cjo3i2pfx2l8h2to7hrnvto7k',
+              style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
               center: [15.319,29.721], // 6.513,19.669
               zoom: 3,
               pitch: 100,
@@ -26,12 +25,14 @@ d3.json('data/africa.geo.json').then((geojson) => {
           .enter()
               .append("path")
               .attr("d", d3.geoPath().projection(transform))
-              .attr("stroke", "none")
+              .attr("stroke", "#ffffff")
+              .attr("stroke-width", 0.5)
+              .attr("stroke-opacity", 0.5)
               .attr("fill", "#0a141c")
-              .attr("fill-opacity", 0.5)
+              .attr("fill-opacity", 0.9)
               .on('mouseover', function(d) {
                   // console.log(d);
-                  d3.select(this).attr("fill", "#091116", 0);
+                  d3.select(this).attr("fill", "#f93d3d", 0);
                   d3.select("#hover")
                       .text(d.properties.name);
                   d3.select('#hover').attr("fill-opacity", 1);
@@ -40,6 +41,7 @@ d3.json('data/africa.geo.json').then((geojson) => {
                   d3.select("#click")
                       .text(document.getElementById("country_textbox").value = d.properties.name);
               })
+
               .on('mouseout', function() {
                   d3.select(this).attr("fill", "#0a141c", 0);
                   d3.select('#hover').attr("fill-opacity", 0);
@@ -49,6 +51,7 @@ d3.json('data/africa.geo.json').then((geojson) => {
                       .attr('x', function() { return d3.mouse(this)[0] + 20; })
                       .attr('y', function() { return d3.mouse(this)[1] + 10; });
               });
+
 
           svg.append("text")
               .attr('id', 'hover')
@@ -165,7 +168,7 @@ function submit_arrow() {
 
   var country = country_match(document.getElementById("country_textbox").value)
   if (country){
-    
+
     var country_electricity, country_population, country_landarea;
     var country_education = [];
     for (let i=0; i<electricity_data.length; i++){
@@ -277,7 +280,7 @@ function submit_arrow() {
         document.getElementById("year2_males").innerHTML = edu2m + "%"
         document.getElementById("year1_females").innerHTML = edu1f + "%"
         document.getElementById("year2_females").innerHTML = edu2f + "%"
-        
+
         document.getElementById("year1_males_plot").setAttribute('d', "M447,681v-"+(edu1m/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu1m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
         document.getElementById("year1_females_plot").setAttribute('d', "M420,681v-"+(edu1f/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu1f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
         document.getElementById("year1_electricity_plot").setAttribute('d', "M394,681v-"+(elec1/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(elec1/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
@@ -289,16 +292,16 @@ function submit_arrow() {
         // Population
         var popyear1 = parseInt(country_population[year1])
         var popyear2 = parseInt(country_population[year2])
-        var popyear1_d = "M1367.2,445.9v18l13,13h"+(popyear1/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z" 
+        var popyear1_d = "M1367.2,445.9v18l13,13h"+(popyear1/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z"
         var popyear2_d = "M1367.2,485.2v18l13,13h"+(popyear2/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z"
-        
+
         document.getElementById("population_year1").innerHTML = year1
         document.getElementById("population_year1_value").innerHTML = popyear1.toLocaleString()
         document.getElementById("population_box_year1").setAttribute('d', popyear1_d)
         document.getElementById("population_year2").innerHTML = year2
         document.getElementById("population_year2_value").innerHTML = popyear2.toLocaleString()
         document.getElementById("population_box_year2").setAttribute('d', popyear2_d)
-        
+
         var population_desc = "The population has incresed by "+parseInt(100*Math.abs(popyear1-popyear2)/Math.min(popyear1,popyear2))+"% in "+Math.abs(year1-year2)+" years"
         document.getElementById("population_desc").innerHTML = population_desc
 
