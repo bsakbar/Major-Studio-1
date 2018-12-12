@@ -21,23 +21,30 @@
 		{
 			"region" : "East Africa",
 			"countries" : ["Djibouti", "Eritrea","Somalia","Sudan","S. Sudan","Mauritius","Comoros","Seychelles","Uganda","Rwanda","Burundi","Kenya","Tanzania","Zambia","Zimbabwe"],
-			"summary" : "EA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
-			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
-			people and contributes to more peaceful societies."
+			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,
+			such as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located
+			far away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe
+			water and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers,
+			coupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
+			"source": "https://www.unicef.org/esaro/5481_education_gender.html"
 		},
 		{
 			"region" : "Central Africa",
 			"countries" : ["Cameroon","Central African Rep.","Chad","Dem. Rep. Congo","Eq. Guinea","São Tomé and Príncipe"],
-			"summary" : "CA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
-			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
-			people and contributes to more peaceful societies."
+			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance
+			of high-quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge,
+			values, and attitudes required for success in the 21st century.",
+			"source": "https://www.unicef.org/wca/what-we-do/education"
 		},
 		{
 			"region" : "Southern Africa",
 			"countries" : ["Botswana", "Swaziland","Lesotho","Mozambique","Madagascar","Zambia","Zimbabwe","Malawi","Namibia","South Africa","Angola"],
-			"summary" : "SA / Education is the key that will allow many other Sustainable Development Goals (SDGs) to be achieved. When people are able to get quality education they can break from the cycle of poverty.
-			Education therefore helps to reduce inequalities and to reach gender equality. It also empowers people everywhere to live more healthy and sustainable lives. Education is also crucial to fostering tolerance between
-			people and contributes to more peaceful societies."
+			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,
+			such as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located
+			far away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe
+			water and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers,
+			coupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
+			"source": "https://www.unicef.org/esaro/5481_education_gender.html"
 		}
 	]
 }\

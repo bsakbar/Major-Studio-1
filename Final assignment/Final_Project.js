@@ -2,11 +2,10 @@ d3.json('data/africa.geo.json').then((geojson) => {
 
           // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
           mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
-
           // https://www.mapbox.com/mapbox-gl-js/api/#map
           let map = new mapboxgl.Map({
               container: 'map',
-              style: 'mapbox://styles/bsakbar/cjo3i2pfx2l8h2to7hrnvto7k',
+              style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
               center: [15.319,29.721], // 6.513,19.669
               zoom: 3,
               pitch: 100,
@@ -26,12 +25,14 @@ d3.json('data/africa.geo.json').then((geojson) => {
           .enter()
               .append("path")
               .attr("d", d3.geoPath().projection(transform))
-              .attr("stroke", "none")
+              .attr("stroke", "#ffffff")
+              .attr("stroke-width", 0.5)
+              .attr("stroke-opacity", 0.5)
               .attr("fill", "#0a141c")
-              .attr("fill-opacity", 0.5)
+              .attr("fill-opacity", 0.9)
               .on('mouseover', function(d) {
                   // console.log(d);
-                  d3.select(this).attr("fill", "#091116", 0);
+                  d3.select(this).attr("fill", "#f93d3d", 0);
                   d3.select("#hover")
                       .text(d.properties.name);
                   d3.select('#hover').attr("fill-opacity", 1);
@@ -40,6 +41,7 @@ d3.json('data/africa.geo.json').then((geojson) => {
                   d3.select("#click")
                       .text(document.getElementById("country_textbox").value = d.properties.name);
               })
+
               .on('mouseout', function() {
                   d3.select(this).attr("fill", "#0a141c", 0);
                   d3.select('#hover').attr("fill-opacity", 0);
@@ -50,9 +52,10 @@ d3.json('data/africa.geo.json').then((geojson) => {
                       .attr('y', function() { return d3.mouse(this)[1] + 10; });
               });
 
+
           svg.append("text")
               .attr('id', 'hover')
-              .style('fill','#f93d3d');
+              .style('fill','#ffffff');
 
           function update() {
               featureElement.attr("d", path);
@@ -78,6 +81,152 @@ d3.json('data/africa.geo.json').then((geojson) => {
 
       });
 
+
+var current_region = "Eastern Africa"
+
+function regional_map(region){
+  current_region = region
+  // console.log(current_region)
+  document.getElementById("map").style.display = "none"
+  document.getElementById("map2").style.display = "block"
+  var evt = document.createEvent('UIEvents');
+  evt.initUIEvent('resize', true, false, window, 0);
+  window.dispatchEvent(evt);
+  // console.log(current_region)
+}
+
+d3.json('data/africa.geo.json').then((geojson) => {
+
+          // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
+          mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
+          // https://www.mapbox.com/mapbox-gl-js/api/#map
+          let map = new mapboxgl.Map({
+              container: 'map2',
+              style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
+              center: [15.319,29.721], // 6.513,19.669
+              zoom: 3,
+              pitch: 100,
+              bearing: 50,
+              interactive: false
+          });
+
+          let container = map.getCanvasContainer()
+          let svg = d3.select(container).append("svg")
+
+        // console.log(current_region)
+        let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
+        let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
+      // #091116 < dark navy / #0a141c < navy / #f93d3d < red
+        let featureElement = svg.selectAll("path")
+          .data(geojson.features)
+          .enter()
+              .append("path")
+              .attr("d", d3.geoPath().projection(transform))
+              .attr("stroke", "#f93d3d")
+              .attr("stroke-width", 0.6)
+              // .attr("stroke-opacity", 0.5)
+              .attr("stroke-opacity", function(d) {
+                      if (d.properties.subregion == current_region) { return 0.5 }
+                      else 	{ return 0 }
+                    ;})
+              .attr("fill", "#0a141c")
+              .attr("fill-opacity", 0.9)
+              .on('mouseover', function(d) {
+                  // console.log(d);
+                  d3.select(this).attr("fill", "#f93d3d", 0);
+                  d3.select("#hover")
+                      .text(d.properties.name);
+                  d3.select('#hover').attr("fill-opacity", 1);
+              })
+              .on('click', function(d) {
+                  d3.select("#click")
+                      .text(document.getElementById("country_textbox").value = d.properties.name);
+              })
+
+              .on('mouseout', function() {
+                  d3.select(this).attr("fill", "#0a141c", 0);
+                  d3.select('#hover').attr("fill-opacity", 0);
+              })
+              .on('mousemove', function(d) {
+                  d3.select("#hover")
+                      .attr('x', function() { return d3.mouse(this)[0] + 20; })
+                      .attr('y', function() { return d3.mouse(this)[1] + 10; });
+              });
+
+
+          svg.append("text")
+              .attr('id', 'hover')
+              .style('fill','#ffffff');
+
+          function update() {
+              featureElement.attr("d", path);
+          }
+
+          map.on("viewreset", update)
+          map.on("movestart", function(){
+          svg.classed("hidden", true);
+        });
+          map.on("rotate", function(){
+          svg.classed("hidden", true);
+        });
+          map.on("moveend", function(){
+          update();
+          svg.classed("hidden", false);
+        })
+
+          update()
+        function projectPoint(lon, lat) {
+              let point = map.project(new mapboxgl.LngLat(lon, lat));
+          this.stream.point(point.x, point.y);
+        }
+
+      });
+
+// function updateData() {
+    // Get the data again
+//     d3.json('data/africa.geo.json').then((geojson) => {
+//       // var svg = d3.select("map");
+//       // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
+//       mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
+//       // https://www.mapbox.com/mapbox-gl-js/api/#map
+//       let map = new mapboxgl.Map({
+//           container: 'map',
+//           style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
+//           center: [15.319,29.721], // 6.513,19.669
+//           zoom: 3,
+//           pitch: 100,
+//           bearing: 50,
+//           interactive: false
+//       });
+//
+//       let container = map.getCanvasContainer()
+//       let svg = d3.select(container).append("svg")
+//
+//       let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
+//       let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
+//       // #091116 < dark navy / #0a141c < navy / #f93d3d < red
+//
+//       let featureElement = svg.selectAll("path")
+//         .data(geojson.features)
+//         .enter()
+//             .append("path")
+//             // .attr("d", d3.geoPath().projection(transform))
+//             .attr("stroke", "#f93d3d")
+//             .attr("stroke-width", 0.5)
+//             .attr("stroke-opacity", 0.5)
+//             .attr("fill", "#0a141c")
+//             .attr("fill-opacity", 0.9)
+//             .style("fill", function(d) {
+//                     if (d.properties.subregion == "Northern Africa") { return "red" }
+//                     else 	{ return "black" }
+//                   ;})
+//         function projectPoint(lon, lat) {
+//               let point = map.project(new mapboxgl.LngLat(lon, lat));
+//           this.stream.point(point.x, point.y);
+//         }
+//       });
+// }
+
 var electricity_data = [];
 d3.csv("data/access_electricity_data.csv", function(data) {
     electricity_data.push(data)
@@ -99,30 +248,6 @@ d3.csv("data/Land_Area.csv", function(data) {
     landarea.push(data)
 });
 
-// function country_match(){
-  // var validCounries = ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central Arfrican Republic","Chad","Comoros","Democratic Republic of Congo","Congo","Cote D Ivoire","Djibouti","Egypt","El Salvador","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Nauro","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"];
-  // for (let i=0; i<electricity_data.length; i++){
-  //   validCounries.push(electricity_data[i]["Country_Name"])
-  // }
-  // previousValue = "";
-  
-  // $('input#country_textbox').autocomplete({
-  //     autoFocus: true,
-  //     source: validOptions
-  // }).keyup(function() {
-  //     var isValid = false;
-  //     for (i in validOptions) {
-  //         if (validOptions[i].toLowerCase().match(this.value.toLowerCase())) {
-  //             isValid = true;
-  //         }
-  //     }
-  //     if (!isValid) {
-  //         this.value = previousValue
-  //     } else {
-  //         previousValue = this.value;
-  //     }
-  // });
-// }
 
 function electricity_tab() {
   var elements = document.getElementsByClassName("education-tab");
@@ -189,7 +314,7 @@ function submit_arrow() {
 
   var country = country_match(document.getElementById("country_textbox").value)
   if (country){
-    
+
     var country_electricity, country_population, country_landarea;
     var country_education = [];
     for (let i=0; i<electricity_data.length; i++){
@@ -212,7 +337,6 @@ function submit_arrow() {
     } else {
 
       if(school == "PRIMARY"){
-        school = "PRIMARY"
         for (let i=0; i<primary_education.length; i++){
           if (country == primary_education[i]["Country"]){
             country_education.push(primary_education[i])
@@ -294,29 +418,29 @@ function submit_arrow() {
         if (isNaN(edu2m)){ edu2m = "--" }
         if (isNaN(edu1f)){ edu1f = "--" }
         if (isNaN(edu2f)){ edu2f = "--" }
-        console.log(edu1m,edu2m,edu1f,edu2f)
+        // console.log(edu1m,edu2m,edu1f,edu2f)
 
         document.getElementById("year1_access_electricity").innerHTML = elec1 + "%"
         document.getElementById("year2_access_electricity").innerHTML = elec2 + "%"
         document.getElementById("year1_males").innerHTML = edu1m + "%"
-        document.getElementById("year2_males").innerHTML = edu1m + "%"
+        document.getElementById("year2_males").innerHTML = edu2m + "%"
         document.getElementById("year1_females").innerHTML = edu1f + "%"
         document.getElementById("year2_females").innerHTML = edu2f + "%"
 
-        document.getElementById("year1_males_plot").setAttribute('d', "M464,555v"+(edu1m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu1m/100*120)+"c2.3-2.3,3.7-3.7,6-6H464z")
-        document.getElementById("year2_males_plot").setAttribute('d', "M464,784v"+(edu2m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu2m/100*120)+"c2.3-2.3,3.7-3.7,6-6H464z")
-        document.getElementById("year1_females_plot").setAttribute('d', "M437,555v"+(edu1f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu1f/100*120)+"c2.3-2.3,3.7-3.7,6-6H437z")
-        document.getElementById("year2_females_plot").setAttribute('d', "M437,784v"+(edu2f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(edu2f/100*120)+"c2.3-2.3,3.7-3.7,6-6H437z")
-        document.getElementById("year1_electricity_plot").setAttribute('d', "M411,555v"+(elec1/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(elec1/100*120)+"c2.3-2.3,3.7-3.7,6-6H411z")
-        document.getElementById("year2_electricity_plot").setAttribute('d', "M411,784v"+(elec2/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11v-"+(elec2/100*120)+"2.3-2.3,3.7-3.7,6-6H411z")
+        document.getElementById("year1_males_plot").setAttribute('d', "M447,681v-"+(edu1m/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu1m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year1_females_plot").setAttribute('d', "M420,681v-"+(edu1f/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu1f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year1_electricity_plot").setAttribute('d', "M394,681v-"+(elec1/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(elec1/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year2_males_plot").setAttribute('d', "M447,910v-"+(edu2m/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu2m/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year2_females_plot").setAttribute('d', "M420,910v-"+(edu2f/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(edu2f/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
+        document.getElementById("year2_electricity_plot").setAttribute('d', "M394,910v-"+(elec2/100*120)+"c2.3-2.3,3.7-3.7,6-6h11v"+(elec2/100*120)+"c-2.3,2.3-3.7,3.7-6,6h-11z")
 
 
         // Population
         var popyear1 = parseInt(country_population[year1])
         var popyear2 = parseInt(country_population[year2])
-        var popyear1_d = "M1367.2,445.9v18l13,13h"+(popyear1/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z" 
+        var popyear1_d = "M1367.2,445.9v18l13,13h"+(popyear1/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z"
         var popyear2_d = "M1367.2,485.2v18l13,13h"+(popyear2/Math.max(popyear1,popyear2)*200)+"v-18l-13,-13Z"
-        
+
         document.getElementById("population_year1").innerHTML = year1
         document.getElementById("population_year1_value").innerHTML = popyear1.toLocaleString()
         document.getElementById("population_box_year1").setAttribute('d', popyear1_d)
@@ -324,8 +448,12 @@ function submit_arrow() {
         document.getElementById("population_year2_value").innerHTML = popyear2.toLocaleString()
         document.getElementById("population_box_year2").setAttribute('d', popyear2_d)
 
+        var population_desc = "The population has incresed by "+parseInt(100*Math.abs(popyear1-popyear2)/Math.min(popyear1,popyear2))+"% in "+Math.abs(year1-year2)+" years"
+        document.getElementById("population_desc").innerHTML = population_desc
+
         document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()
         document.getElementById("map").style.display = "none"
+        document.getElementById("map2").style.display = "none"
 
         var elements = document.getElementsByClassName("country-svg");
         elements['country-map'].src="SVG/"+country_electricity["Country_Name"]+".svg"
@@ -336,7 +464,7 @@ function submit_arrow() {
       }
     }
   } else {
-    alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
+    alert("Please check Country Name and fill all Electrcity and Education inputs");
     close_button()
   }
 }
@@ -376,6 +504,10 @@ function submit_arrow() {
 function close_button(){
 
   document.getElementById("map").style.display = "block"
+  var evt = document.createEvent('UIEvents');
+  evt.initUIEvent('resize', true, false, window, 0);
+  window.dispatchEvent(evt);
+
   var elements = document.getElementsByClassName("country-svg");
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "none"
