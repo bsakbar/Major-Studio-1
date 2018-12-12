@@ -238,9 +238,9 @@ function submit_arrow() {
       }
 
       if (!gender){
-      alert("Please select a Gender from the Education Tab")
-      close_button()
-      document.getElementById("country_textbox").value = country;
+        alert("Please select a Gender from the Education Tab")
+        close_button()
+        document.getElementById("country_textbox").value = country;
       } else {
 
         var this_gender, education_year1 = {}, education_year2 = {}
