@@ -183,21 +183,6 @@
 
         }
 
-        /*this is copied from textbox style for comparison with autocomplete elements
-        position:absolute; z-index:2; outline:none;
-        border:none;
-        -webkit-box-shadow: 0px 0px 0px;
-        box-shadow: 0px 0px 0px;
-        font-family: 'Miriam Libre', sans-serif;
-        background-color: transparent;
-        border-radius: 0;
-        -webkit-appearance: none;
-        color: #f93d3d;
-        width: 200px;
-        margin: 700px 120px;
-        padding: 10px 10px;*/
-
-
         .autocomplete-items {
           width: 185px;
 
@@ -236,11 +221,9 @@
           color: #0a141c;
         }
 
-
-
-
     </style>
 </head>
+
 
 <body>
 
@@ -300,7 +283,7 @@
         display: inline-block;
         margin: 824px 270px;
         cursor: pointer;
-        "type="button" name="region" />
+        "type="button" name="region" onclick="regional_map('Western Africa')"/>
 
         <!--East Africa Button-->
           <input style="position:absolute; z-index:2; outline:none;
@@ -1124,6 +1107,20 @@
       </svg>
 
           <div id="map"></div>
-          <div id="map2"></div>
+
+<script>
+    // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
+    let map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
+        center: [15.319,29.721], // 6.513,19.669
+        zoom: 3,
+        pitch: 100,
+        bearing: 50,
+        interactive: false
+      });
+</script>
+
 
 </body>

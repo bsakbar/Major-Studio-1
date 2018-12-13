@@ -1,231 +1,93 @@
-d3.json('data/africa.geo.json').then((geojson) => {
+function drawmap(regional_mode=false,region=""){
 
-          // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
-          mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
-          // https://www.mapbox.com/mapbox-gl-js/api/#map
-          let map = new mapboxgl.Map({
-              container: 'map',
-              style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
-              center: [15.319,29.721], // 6.513,19.669
-              zoom: 3,
-              pitch: 100,
-              bearing: 50,
-              interactive: false
-          });
+  d3.json('data/africa.geo.json').then((geojson) => {
 
-          let container = map.getCanvasContainer()
-          let svg = d3.select(container).append("svg")
+      d3.select('#map').select("svg").remove();  
 
+      let container = map.getCanvasContainer()
+      let svg = d3.select(container).append("svg")
 
-        let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
-        let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
-      // #091116 < dark navy / #0a141c < navy / #f93d3d < red
-        let featureElement = svg.selectAll("path")
-          .data(geojson.features)
-          .enter()
-              .append("path")
-              .attr("d", d3.geoPath().projection(transform))
-              .attr("stroke", "#ffffff")
-              .attr("stroke-width", 0.5)
-              .attr("stroke-opacity", 0.5)
-              .attr("fill", "#0a141c")
-              .attr("fill-opacity", 0.9)
-              .on('mouseover', function(d) {
-                  // console.log(d);
-                  d3.select(this).attr("fill", "#f93d3d", 0);
-                  d3.select("#hover")
-                      .text(d.properties.name);
-                  d3.select('#hover').attr("fill-opacity", 1);
-              })
-              .on('click', function(d) {
-                  d3.select("#click")
-                      .text(document.getElementById("country_textbox").value = d.properties.name);
-              })
+      let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
+      let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
+    // #091116 < dark navy / #0a141c < navy / #f93d3d < red
+      let featureElement = svg.selectAll("path")
+        .data(geojson.features)
+        .enter()
+            .append("path")
+            .attr("d", d3.geoPath().projection(transform))
+            // .attr("stroke", "#ffffff")
+            .attr("stroke", function(d) {
+                  if (regional_mode){
+                      if (d.properties.subregion == region) { return "#f93d3d" }
+                      else   { return "#ffffff" }
+                  } else { return "#ffffff"}
+                ;})
+            .attr("stroke-width", 0.5)
+            // .attr("stroke-opacity", 0.5)
+            .attr("stroke-opacity", function(d) {
+                  if (regional_mode){
+                      if (d.properties.subregion == region) { return 0.5 }
+                      else   { return 0 }
+                  } else { return 0.5}
+                ;})
+            .attr("fill", "#0a141c")
+            .attr("fill-opacity", 0.9)
+            .on('mouseover', function(d) {
+                // console.log(d);
+                d3.select(this).attr("fill", "#f93d3d", 0);
+                d3.select("#hover")
+                    .text(d.properties.name);
+                d3.select('#hover').attr("fill-opacity", 1);
+            })
+            .on('click', function(d) {
+                d3.select("#click")
+                    .text(document.getElementById("country_textbox").value = d.properties.name);
+            })
 
-              .on('mouseout', function() {
-                  d3.select(this).attr("fill", "#0a141c", 0);
-                  d3.select('#hover').attr("fill-opacity", 0);
-              })
-              .on('mousemove', function(d) {
-                  d3.select("#hover")
-                      .attr('x', function() { return d3.mouse(this)[0] + 20; })
-                      .attr('y', function() { return d3.mouse(this)[1] + 10; });
-              });
+            .on('mouseout', function() {
+                d3.select(this).attr("fill", "#0a141c", 0);
+                d3.select('#hover').attr("fill-opacity", 0);
+            })
+            .on('mousemove', function(d) {
+                d3.select("#hover")
+                    .attr('x', function() { return d3.mouse(this)[0] + 20; })
+                    .attr('y', function() { return d3.mouse(this)[1] + 10; });
+            });
 
+        svg.append("text")
+            .attr('id', 'hover')
+            .style('fill','#ffffff');
 
-          svg.append("text")
-              .attr('id', 'hover')
-              .style('fill','#ffffff');
-
-          function update() {
-              featureElement.attr("d", path);
-          }
-
-          map.on("viewreset", update)
-          map.on("movestart", function(){
-          svg.classed("hidden", true);
-        });
-          map.on("rotate", function(){
-          svg.classed("hidden", true);
-        });
-          map.on("moveend", function(){
-          update();
-          svg.classed("hidden", false);
-        })
-
-          update()
-        function projectPoint(lon, lat) {
-              let point = map.project(new mapboxgl.LngLat(lon, lat));
-          this.stream.point(point.x, point.y);
+        function update() {
+            featureElement.attr("d", path);
         }
 
+        map.on("viewreset", update)
+        map.on("movestart", function(){
+        svg.classed("hidden", true);
       });
+        map.on("rotate", function(){
+        svg.classed("hidden", true);
+      });
+        map.on("moveend", function(){
+        update();
+        svg.classed("hidden", false);
+      })
 
+        update()
+      function projectPoint(lon, lat) {
+            let point = map.project(new mapboxgl.LngLat(lon, lat));
+        this.stream.point(point.x, point.y);
+      }
 
-var current_region = "Eastern Africa"
-
-function regional_map(region){
-  current_region = region
-  // console.log(current_region)
-  document.getElementById("map").style.display = "none"
-  document.getElementById("map2").style.display = "block"
-  var evt = document.createEvent('UIEvents');
-  evt.initUIEvent('resize', true, false, window, 0);
-  window.dispatchEvent(evt);
-  // console.log(current_region)
+    });
 }
 
-d3.json('data/africa.geo.json').then((geojson) => {
 
-          // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
-          mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
-          // https://www.mapbox.com/mapbox-gl-js/api/#map
-          let map = new mapboxgl.Map({
-              container: 'map2',
-              style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
-              center: [15.319,29.721], // 6.513,19.669
-              zoom: 3,
-              pitch: 100,
-              bearing: 50,
-              interactive: false
-          });
+function regional_map(region){
+  drawmap(true,region)
+}
 
-          let container = map.getCanvasContainer()
-          let svg = d3.select(container).append("svg")
-
-        // console.log(current_region)
-        let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
-        let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
-      // #091116 < dark navy / #0a141c < navy / #f93d3d < red
-        let featureElement = svg.selectAll("path")
-          .data(geojson.features)
-          .enter()
-              .append("path")
-              .attr("d", d3.geoPath().projection(transform))
-              .attr("stroke", "#f93d3d")
-              .attr("stroke-width", 0.6)
-              // .attr("stroke-opacity", 0.5)
-              .attr("stroke-opacity", function(d) {
-                      if (d.properties.subregion == current_region) { return 0.5 }
-                      else 	{ return 0 }
-                    ;})
-              .attr("fill", "#0a141c")
-              .attr("fill-opacity", 0.9)
-              .on('mouseover', function(d) {
-                  // console.log(d);
-                  d3.select(this).attr("fill", "#f93d3d", 0);
-                  d3.select("#hover")
-                      .text(d.properties.name);
-                  d3.select('#hover').attr("fill-opacity", 1);
-              })
-              .on('click', function(d) {
-                  d3.select("#click")
-                      .text(document.getElementById("country_textbox").value = d.properties.name);
-              })
-
-              .on('mouseout', function() {
-                  d3.select(this).attr("fill", "#0a141c", 0);
-                  d3.select('#hover').attr("fill-opacity", 0);
-              })
-              .on('mousemove', function(d) {
-                  d3.select("#hover")
-                      .attr('x', function() { return d3.mouse(this)[0] + 20; })
-                      .attr('y', function() { return d3.mouse(this)[1] + 10; });
-              });
-
-
-          svg.append("text")
-              .attr('id', 'hover')
-              .style('fill','#ffffff');
-
-          function update() {
-              featureElement.attr("d", path);
-          }
-
-          map.on("viewreset", update)
-          map.on("movestart", function(){
-          svg.classed("hidden", true);
-        });
-          map.on("rotate", function(){
-          svg.classed("hidden", true);
-        });
-          map.on("moveend", function(){
-          update();
-          svg.classed("hidden", false);
-        })
-
-          update()
-        function projectPoint(lon, lat) {
-              let point = map.project(new mapboxgl.LngLat(lon, lat));
-          this.stream.point(point.x, point.y);
-        }
-
-      });
-
-// function updateData() {
-    // Get the data again
-//     d3.json('data/africa.geo.json').then((geojson) => {
-//       // var svg = d3.select("map");
-//       // https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
-//       mapboxgl.accessToken = 'pk.eyJ1IjoiYnNha2JhciIsImEiOiJjam14em1hNmQweHZlM3FwbHVtbmQ5eXdoIn0.XgXo8yf68EhBjNTZ6nXhpg';
-//       // https://www.mapbox.com/mapbox-gl-js/api/#map
-//       let map = new mapboxgl.Map({
-//           container: 'map',
-//           style: 'mapbox://styles/bsakbar/cjpiw7sr14mx72sq8n940y70a',
-//           center: [15.319,29.721], // 6.513,19.669
-//           zoom: 3,
-//           pitch: 100,
-//           bearing: 50,
-//           interactive: false
-//       });
-//
-//       let container = map.getCanvasContainer()
-//       let svg = d3.select(container).append("svg")
-//
-//       let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
-//       let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
-//       // #091116 < dark navy / #0a141c < navy / #f93d3d < red
-//
-//       let featureElement = svg.selectAll("path")
-//         .data(geojson.features)
-//         .enter()
-//             .append("path")
-//             // .attr("d", d3.geoPath().projection(transform))
-//             .attr("stroke", "#f93d3d")
-//             .attr("stroke-width", 0.5)
-//             .attr("stroke-opacity", 0.5)
-//             .attr("fill", "#0a141c")
-//             .attr("fill-opacity", 0.9)
-//             .style("fill", function(d) {
-//                     if (d.properties.subregion == "Northern Africa") { return "red" }
-//                     else 	{ return "black" }
-//                   ;})
-//         function projectPoint(lon, lat) {
-//               let point = map.project(new mapboxgl.LngLat(lon, lat));
-//           this.stream.point(point.x, point.y);
-//         }
-//       });
-// }
 
 var electricity_data = [];
 d3.csv("data/access_electricity_data.csv", function(data) {
@@ -453,7 +315,6 @@ function submit_arrow() {
 
         document.getElementById("landarea").innerHTML = parseInt(country_landarea[2017]).toLocaleString()
         document.getElementById("map").style.display = "none"
-        document.getElementById("map2").style.display = "none"
 
         var elements = document.getElementsByClassName("country-svg");
         elements['country-map'].src="SVG/"+country_electricity["Country_Name"]+".svg"
@@ -530,7 +391,7 @@ function close_button(){
 
   right_arrow()
   electricity_tab()
-
+  drawmap()
 }
 
 
@@ -655,11 +516,6 @@ function autocomplete(inp, arr) {
 /*An array containing all the country names in the world:*/
 var countries = ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central Arfrican Republic","Chad","Comoros","Democratic Republic of Congo","Congo","Cote d'Ivoire","Djibouti","Egypt","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea-Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Nauro","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"];
 
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-window.onload=function(){
-    autocomplete(document.getElementById("country_textbox"), countries);
-}
-
 
 function country_match(country){
   for (let i=0; i<countries.length; i++){
@@ -673,4 +529,11 @@ function country_match(country){
     }
   }
   return false
+}
+
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+window.onload=function(){
+    autocomplete(document.getElementById("country_textbox"), countries);
+    drawmap()
 }
