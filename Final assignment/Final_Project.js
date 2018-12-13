@@ -544,7 +544,7 @@ var regions = [
 		{
 			"region" : "Western Africa",
 			"countries" : ["Benin", "Burkina Faso","Cape Verde","Cote d'Ivoire","Gambia","Ghana","Guinea","Guinea-Bissau","Liberia","Mali","Mauritania","Niger","Nigeria","Senegal","Sierra Leone","Togo"],
-			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance of high-quality\nlearning. This is despite the need for quality education to help prepare children with the skills, knowledge, values, and attitudes required\n for success in the 21st century.",
+			"summary" : "Millions of children in West and Central Africa are still denied an education. Even pupils who complete basic education face a slim chance\nof high–quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge, values, and \nattitudes required for success in the 21st century. The region accounts for one–third of the global total of primary school age children and\none–fifth of lower secondary age children who are out of school. The region also lags behind in gender equality in education: for every ten\nboys enrolled in primary school, there are only nine girls. These differences get bigger as children progress through the school system.",
 			"source": "https://www.unicef.org/wca/what-we-do/education"
 		},
 		{
@@ -556,7 +556,7 @@ var regions = [
 		{
 			"region" : "Central Africa",
 			"countries" : ["Cameroon","Central African Rep.","Chad","Democratic Republic of Congo","Equatorial Guinea","Sao Tome and Principe"],
-			"summary" : "Millions of children in Central Africa are still denied an education. Even pupils who complete basic education face a slim chance of high-quality\nlearning. This is despite the need for quality education to help prepare children with the skills, knowledge, values, and attitudes required\n for success in the 21st century.",
+			"summary" : "Millions of children in West and Central Africa are still denied an education. Even pupils who complete basic education face a slim chance\nof high–quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge, values, and \nattitudes required for success in the 21st century. The region accounts for one–third of the global total of primary school age children and\none–fifth of lower secondary age children who are out of school. The region also lags behind in gender equality in education: for every ten\nboys enrolled in primary school, there are only nine girls. These differences get bigger as children progress through the school system.",
 			"source": "https://www.unicef.org/wca/what-we-do/education"
 		},
 		{
