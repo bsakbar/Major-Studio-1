@@ -28,20 +28,13 @@
         }
         #map {
             position:fixed;
-            width:100%;
-            height: 100%;
+            width:1920px;
+            height: 1080px;
             margin: auto auto;
             display: block;
 
         }
-        #map2 {
-            position:fixed;
-            width:100%;
-            height: 100%;
-            margin: auto auto;
-            display: none;
 
-        }
         svg {
             width:1920px;
             height: 1080px;
@@ -220,12 +213,76 @@
           background-color: #0a141c !important;
           color: #0a141c;
         }
+        /* a{
+          position: absolute;
+          z-index:3;
+          color: #f93d3d;
+          font-family: 'Miriam Libre', sans-serif;
+          font-size: 10px;
+          margin: 915px 683px;
+        } */
+
+        .collapsible {
+          background-color: transparent;
+          color: #f93d3d;
+          font-family: 'Miriam Libre', sans-serif;
+          cursor: pointer;
+          padding: 5px;
+          width: 110px;
+          border: none;
+          text-align: center;
+          outline: none;
+          font-size: 12px;
+          margin: 1017px 1735px;
+        }
+
+        .active, .collapsible:hover {
+          background-color: transparent;
+
+        }
+
+        .content {
+          color: white;
+          font-family: 'Miriam Libre', sans-serif;
+          font-size: 8.5px;
+          padding:12px 12px 10px 15px;
+          margin: 920px 1215px;
+          width: 600px;
+          display: none;
+          overflow: hidden;
+          background-color:transparent;
+          position:absolute;
+          z-index:1;
+          border-style: solid;
+          border-width: thin;
+          border-color: #f93d3d;;
+        }
 
     </style>
 </head>
 
 
 <body>
+
+    <a style="position: absolute;
+    z-index:3;
+    color: #f93d3d;
+    font-family: 'Miriam Libre', sans-serif;
+    font-size: 10px;
+    margin: 915px 683px;"
+    id="source" href="" class="country-svg" class="source">Source</a>
+
+    <button style="position:absolute; z-index:2; outline:none;"
+    class="collapsible"  onclick="collapse()">DATA SOURCES</button>
+    <div class="content">
+      <p>1. UNICEF Middle East and North Africa. “Education.” unicef.org.<a style="color:white" href=https://www.unicef.org/mena/education>https://www.unicef.org/mena/education</a><br>
+<br>2. UNICEF West and Central Africa.“Education.”unicef.org. <a style="color:white" href=https://www.unicef.org/wca/what-we-do/education>https://www.unicef.org/wca/what-we-do/education</a><br>
+<br>3. UNICEF Eastern and Southern Africa.“Education and Gender Equality.”unicef.org. <a style="color:white" href=https://www.unicef.org/esaro/5481_education_gender.html>https://www.unicef.org/esaro/5481_education_gender.html</a><br>
+<br>
+<br>&ensp;Other data was collected from <a style="color:white" href=https://data.worldbank.org/indicator/AG.LND.TOTL.K2>The World Bank</a>, <a style="color:white" href=http://data.uis.unesco.org/>UNESCO Institute for Statistics</a>,<a style="color:white" href=http://geojson-maps.ash.ms/>GeoJson Maps</a>,
+
+</p>
+    </div>
 
 
     <div class="right-arrow-click">
@@ -333,7 +390,7 @@
         cursor: pointer;
         "type="button" name="region" onclick="regional_map('Southern Africa')"/>
 
-          <!--Sub-Saharan Africa Button-->
+          <!--all african Africa Button-->
         <input style="position:absolute; z-index:2; outline:none;
         -webkit-box-shadow: 0px 0px 0px;
         box-shadow: 0px 0px 0px;
@@ -347,7 +404,7 @@
         display: inline-block;
         margin: 910px 130px;
         cursor: pointer;
-        "type="button" name="region" />
+        "type="button" name="region" onclick="regional_map('Africa')"/>
 
 
 
@@ -624,10 +681,10 @@
     <rect class="a" width="1921" height="1080" transform="translate(0 0.5)"/>
     <path class="b" d="M1332,1081.5l-1332-1V.5L376.5,0Z"/>
     <text class="c" transform="translate(1711.068 999.111)">
-        <!-- <tspan x="0" y="35">COPYRIGHTS | DATA SOURCE</tspan> -->
+
     </text>
     <text class="d" style= "font-size:42px;
-        letter-spacing: -1px;font-weight:700;" " transform="translate(71.703 105.082)">
+        letter-spacing: -1px;font-weight:700; " transform="translate(71.703 105.082)">
       <tspan x="0" y="0">How does access to</tspan>
       <tspan class="e" y="0" xml:space="preserve"> [</tspan>
       <tspan y="0">electricity</tspan>
@@ -746,7 +803,7 @@
        </text>
        <path class="m" d="M118.4,906.5H295.2l9.4,9.4v25.3l-176.8-.1-9.4-9.4Z"/>
        <text class="h" transform="translate(138.426 929.053)">
-          <tspan x="0" y="0">SUB-SAHARAN AFRICA</tspan>
+          <tspan x="0" y="0">ALL AFRICAN REGIONS</tspan>
        </text>
        <path class="m" d="M273,864.2H421.6l9.4,9.4v25.3l-148.6-.1-9.4-9.4Z"/>
        <text class="h" transform="translate(291.095 886.766)">
@@ -944,12 +1001,14 @@
       <line class="f2" x2="0.3" y2="368.3" transform="translate(1230.2 298.7)"/>
       <rect class="g2" width="1086" height="185.9" transform="translate(682 756.1)"/>
       <text class="paragraph" transform="translate(682.005 775.846)">
-         <tspan x="0" y="0">The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,  </tspan>
-         <tspan x="0" y="27"> such as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located  </tspan>
-         <tspan x="0" y="54"> far away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe </tspan>
-         <tspan x="0" y="81"> water and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers, </tspan>
-         <tspan x="0" y="108">coupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA. </tspan>
-         <tspan font-size="12"text-decoration:underline; fill="#f93d3d" x="0" y="145">Source</tspan>
+         <tspan id="summary_1" x="0" y="0">The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,  </tspan>
+         <tspan id="summary_2" x="0" y="27"> such as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located  </tspan>
+         <tspan id="summary_3" x="0" y="54"> far away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe </tspan>
+         <tspan id="summary_4" x="0" y="81"> water and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers, </tspan>
+         <tspan id="summary_5" x="0" y="108">coupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA. </tspan>
+
+         <!-- <tspan font-size="12"text-decoration:underline; fill="#f93d3d" x="0" y="145"  id="source">Source</tspan> -->
+
       </text>
       <path class="i2" d="M1033.7,442.1"/>
       <text class="j2" transform="translate(912.615 325.266)">

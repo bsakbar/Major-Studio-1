@@ -2,20 +2,18 @@ function drawmap(regional_mode=false,region=""){
 
   d3.json('data/africa.geo.json').then((geojson) => {
 
-      d3.select('#map').select("svg").remove();  
+      d3.select('#map').select("svg").remove();
 
       let container = map.getCanvasContainer()
       let svg = d3.select(container).append("svg")
 
       let transform = d3.geoTransform({point: projectPoint}); // https://bl.ocks.org/Andrew-Reid/496078bd5e37fd22a9b43fd6be84b36b
       let path = d3.geoPath().projection(transform); // https://github.com/d3/d3-3.x-api-reference/blob/master/Geo-Paths.md
-    // #091116 < dark navy / #0a141c < navy / #f93d3d < red
       let featureElement = svg.selectAll("path")
         .data(geojson.features)
         .enter()
             .append("path")
             .attr("d", d3.geoPath().projection(transform))
-            // .attr("stroke", "#ffffff")
             .attr("stroke", function(d) {
                   if (regional_mode){
                       if (d.properties.subregion == region) { return "#f93d3d" }
@@ -23,7 +21,6 @@ function drawmap(regional_mode=false,region=""){
                   } else { return "#ffffff"}
                 ;})
             .attr("stroke-width", 0.5)
-            // .attr("stroke-opacity", 0.5)
             .attr("stroke-opacity", function(d) {
                   if (regional_mode){
                       if (d.properties.subregion == region) { return 0.5 }
@@ -31,7 +28,13 @@ function drawmap(regional_mode=false,region=""){
                   } else { return 0.5}
                 ;})
             .attr("fill", "#0a141c")
-            .attr("fill-opacity", 0.9)
+            // .attr("fill-opacity", 0.9)
+            .attr("fill-opacity", function(d) {
+                  if (regional_mode){
+                      if (d.properties.subregion == region) { return 0.9 }
+                      else   { return 0 }
+                  } else { return 0.9}
+                ;})
             .on('mouseover', function(d) {
                 // console.log(d);
                 d3.select(this).attr("fill", "#f93d3d", 0);
@@ -85,39 +88,19 @@ function drawmap(regional_mode=false,region=""){
 
 
 function regional_map(region){
-  drawmap(true,region)
+  if(region == "Africa"){
+    drawmap()
+  } else {
+    drawmap(true, region)
+  }
 }
-
-
-var electricity_data = [];
-d3.csv("data/access_electricity_data.csv", function(data) {
-    electricity_data.push(data)
-});
-var primary_education = [];
-d3.csv("data/Education/Countries/Primary_Countries_prc.csv", function(data) {
-    primary_education.push(data)
-});
-var secondary_education = [];
-d3.csv("data/Education/Countries/Secondary_Countries_prc.csv", function(data) {
-    secondary_education.push(data)
-});
-var population = [];
-d3.csv("data/Population.csv", function(data) {
-    population.push(data)
-});
-var landarea = [];
-d3.csv("data/Land_Area.csv", function(data) {
-    landarea.push(data)
-});
 
 
 function electricity_tab() {
   var elements = document.getElementsByClassName("education-tab");
-//   console.log(elements)
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "none"
   }
-
   var elements = document.getElementsByClassName("electricity-tab");
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "block"
@@ -126,11 +109,9 @@ function electricity_tab() {
 
 function education_tab() {
   var elements = document.getElementsByClassName("education-tab");
-//   console.log(elements)
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "block"
   }
-
   var elements = document.getElementsByClassName("electricity-tab");
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "none"
@@ -139,11 +120,9 @@ function education_tab() {
 
 function right_arrow() {
   var elements = document.getElementsByClassName("right-arrow");
-//   console.log(elements)
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "none"
   }
-
   var elements = document.getElementsByClassName("right-arrow-click");
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "block"
@@ -155,11 +134,24 @@ function left_arrow() {
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "block"
   }
-
   var elements = document.getElementsByClassName("right-arrow-click");
   for (let i=0; i<elements.length; i++){
     elements[i].style.display = "none"
   }
+}
+
+function country_match(country){
+  for (let i=0; i<countries.length; i++){
+    if (country == countries[i]){
+      return electricity_data[i]["Country_Name"]
+    }
+  }
+  for (let i=0; i<electricity_data.length; i++){
+    if (country == electricity_data[i]["Country_Name"]){
+      return country
+    }
+  }
+  return false
 }
 
 // populating svg with country related data happens here!
@@ -252,7 +244,20 @@ function submit_arrow() {
             country_landarea = landarea[i]
           }
         }
-
+        var found = false;
+        for (let i=0; i<regions.length; i++){
+          var countries = regions[i]['countries']
+          for (let j=0; j<countries.length; j++){
+            if (country == countries[j]){
+              var region = regions[i]['region']
+              var summary = regions[i]['summary']
+              var source = regions[i]['source']
+              found = true
+              break;
+            }
+          }
+          if (found) { break;}
+        }
 
         document.getElementById("country_title").innerHTML = country_electricity["Country_Name"]
         document.getElementById("country_desc").innerHTML = country_electricity["Country_Name"]
@@ -264,9 +269,19 @@ function submit_arrow() {
         document.getElementById("country_year1_desc").innerHTML = year1
         document.getElementById("country_year2_desc").innerHTML = year2
 
-        // document.getElementById("region_bracket").innerHTML = region.toUpperCase()
+        document.getElementById("region_bracket").innerHTML = region.toUpperCase()
         document.getElementById("school_bracket").innerHTML = school.toUpperCase() + " SCHOOL"
         document.getElementById("gender_bracket").innerHTML = gender.toUpperCase()
+
+        var summary_sent = summary.split('\n')
+        for (let i=0; i<5; i++){
+          if (i < summary_sent.length){
+            document.getElementById("summary_"+(i+1)).innerHTML = summary_sent[i]
+          } else {
+            document.getElementById("summary_"+(i+1)).innerHTML = ""
+          }
+        }
+        document.getElementById("source").setAttribute('href',source.toLocaleString())
 
         var elec1 = parseFloat(country_electricity[year1]).toFixed(2)
         var elec2 = parseFloat(country_electricity[year2]).toFixed(2)
@@ -280,7 +295,6 @@ function submit_arrow() {
         if (isNaN(edu2m)){ edu2m = "--" }
         if (isNaN(edu1f)){ edu1f = "--" }
         if (isNaN(edu2f)){ edu2f = "--" }
-        // console.log(edu1m,edu2m,edu1f,edu2f)
 
         document.getElementById("year1_access_electricity").innerHTML = elec1 + "%"
         document.getElementById("year2_access_electricity").innerHTML = elec2 + "%"
@@ -331,39 +345,7 @@ function submit_arrow() {
 }
 
 
-// function error_handeling(country_electricity,education_year1,education_year2,school,gender,country_population,year1,year2){
-//   if (){
-//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
-//     close_button()
-//     return false
-//   } else if () {
-//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
-//     close_button()
-//     return false
-//   } else if () {
-//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
-//     close_button()
-//     return false
-//   } else if () {
-//     alert("Please Check Country Name and Fill all Electrcity and Education Inputs");
-//     close_button()
-//     return false
-//   } else if (country_population[year1] == NaN) {
-//     alert("We don not have population data for "+year1);
-//     close_button()
-//     return false
-//   } else if (country_population[year2] == NaN) {
-//     alert("We don not have population data for "+year2);
-//     close_button()
-//     return false
-//   } else {
-//     return true;
-//   }
-// }
-
-
 function close_button(){
-
   document.getElementById("map").style.display = "block"
   var evt = document.createEvent('UIEvents');
   evt.initUIEvent('resize', true, false, window, 0);
@@ -411,11 +393,19 @@ function year2_slider(){
   document.getElementById("year2_slider_location").setAttribute('transform', location)
 }
 
-
+function collapse(){
+  var elements = document.getElementsByClassName("content");
+  for (let i=0; i<elements.length; i++){
+    if (elements[i].style.display == "block"){
+      elements[i].style.display = "none"
+    } else {
+      elements[i].style.display = "block"
+    }
+  }
+}
 
 // <!--Make sure the form has the autocomplete function switched off:-->
 // <form autocomplete="off" action="/action_page.php">
-
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -513,27 +503,66 @@ function autocomplete(inp, arr) {
   });
 }
 
+
 /*An array containing all the country names in the world:*/
 var countries = ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central Arfrican Republic","Chad","Comoros","Democratic Republic of Congo","Congo","Cote d'Ivoire","Djibouti","Egypt","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea-Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Nauro","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"];
 
-
-function country_match(country){
-  for (let i=0; i<countries.length; i++){
-    if (country == countries[i]){
-      return electricity_data[i]["Country_Name"]
-    }
-  }
-  for (let i=0; i<electricity_data.length; i++){
-    if (country == electricity_data[i]["Country_Name"]){
-      return country
-    }
-  }
-  return false
-}
-
+var electricity_data = [];
+d3.csv("data/access_electricity_data.csv", function(data) {
+    electricity_data.push(data)
+});
+var primary_education = [];
+d3.csv("data/Education/Countries/Primary_Countries_prc.csv", function(data) {
+    primary_education.push(data)
+});
+var secondary_education = [];
+d3.csv("data/Education/Countries/Secondary_Countries_prc.csv", function(data) {
+    secondary_education.push(data)
+});
+var population = [];
+d3.csv("data/Population.csv", function(data) {
+    population.push(data)
+});
+var landarea = [];
+d3.csv("data/Land_Area.csv", function(data) {
+    landarea.push(data)
+});
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 window.onload=function(){
     autocomplete(document.getElementById("country_textbox"), countries);
     drawmap()
 }
+
+var regions = [
+		{
+			"region" : "Northern Africa",
+			"countries" : ["Algeria", "Egypt","Libya","Morocco","Tunisia"],
+			"summary" : "Most countries in North Africa have made significant progress toward increasing children’s school enrolment, attendance and completion.\nHowever, access remains unequal and the quality of education is a major issue in the region. UNICEF is working with governments to tackle\nconstraints to the effective delivery of quality education services for all children. Central to UNICEF's approach to strengthening education\nsystems is improving the availability and use of data. UNICEF does this by advocating for the empowerment of schools to collect, analyze,\nmonitor, and act on data to address equity, learning and system efficiency challenges.",
+			"source": "https://www.unicef.org/mena/education"
+		},
+		{
+			"region" : "Western Africa",
+			"countries" : ["Benin", "Burkina Faso","Cape Verde","Cote d'Ivoire","Gambia","Ghana","Guinea","Guinea-Bissau","Liberia","Mali","Mauritania","Niger","Nigeria","Senegal","Sierra Leone","Togo"],
+			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance of high-quality\nlearning. This is despite the need for quality education to help prepare children with the skills, knowledge, values, and attitudes required\n for success in the 21st century.",
+			"source": "https://www.unicef.org/wca/what-we-do/education"
+		},
+		{
+			"region" : "Eastern Africa",
+			"countries" : ["Djibouti", "Eritrea","Somalia","Sudan","South Sudan","Mauritius","Comoros","Seychelles","Uganda","Rwanda","Burundi","Kenya","Tanzania","Zambia","Zimbabwe"],
+			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,\nsuch as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located\nfar away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe water\nand separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers, coupled\nwith other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
+			"source": "https://www.unicef.org/esaro/5481_education_gender.html"
+		},
+		{
+			"region" : "Central Africa",
+			"countries" : ["Cameroon","Central African Rep.","Chad","Democratic Republic of Congo","Equatorial Guinea","Sao Tome and Principe"],
+			"summary" : "Millions of children in Central Africa are still denied an education. Even pupils who complete basic education face a slim chance of high-quality\nlearning. This is despite the need for quality education to help prepare children with the skills, knowledge, values, and attitudes required\n for success in the 21st century.",
+			"source": "https://www.unicef.org/wca/what-we-do/education"
+		},
+		{
+			"region" : "Southern Africa",
+			"countries" : ["Botswana", "Swaziland","Lesotho","Mozambique","Madagascar","Zambia","Zimbabwe","Malawi","Namibia","South Africa","Angola"],
+			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,\nsuch as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located\nfar away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe water\nand separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers, coupled\nwith other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
+			"source": "https://www.unicef.org/esaro/5481_education_gender.html"
+		}
+	]

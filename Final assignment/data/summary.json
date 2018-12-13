@@ -3,48 +3,32 @@
 		{
 			"region" : "North Africa",
 			"countries" : ["Algeria", "Egypt","Libya","Morocco","Tunisia"],
-			"summary" : "Most countries in North Africa have made significant progress toward increasing
-			children’s school enrolment, attendance and completion. However, access remains unequal and the quality of education is a
-			major issue in the region. UNICEF is working with governments to tackle constraints to the effective delivery of quality education
-			services for all children.  Central to UNICEF's approach to strengthening education systems is improving the availability and use of data.
-			UNICEF does this by advocating for the empowerment of schools to collect, analyze, monitor, and act on data to address equity, learning and system efficiency challenges.",
+			"summary" : "Most countries in North Africa have made significant progress toward increasing\nchildren’s school enrolment, attendance and completion. However, access remains unequal and the quality of education is a\nmajor issue in the region. UNICEF is working with governments to tackle constraints to the effective delivery of quality education\nservices for all children.  Central to UNICEF's approach to strengthening education systems is improving the availability and use of data.\nUNICEF does this by advocating for the empowerment of schools to collect, analyze, monitor, and act on data to address equity, learning and system efficiency challenges.",
 			"source": "https://www.unicef.org/mena/education"
 		},
 		{
 			"region" : "West Africa",
-			"countries" : ["Benin", "Burkina Faso","Cape Verde","Côte d'Ivoire","Gambia","Ghana","Guinea","Guinea-Bissau","Liberia","Mali","Mauritania","Niger","Nigeria","Senegal","Sierra Leone","Togo"],
-			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance
-			of high-quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge,
-			values, and attitudes required for success in the 21st century.",
+			"countries" : ["Benin", "Burkina Faso","Cape Verde","Cote d'Ivoire","Gambia","Ghana","Guinea","Guinea-Bissau","Liberia","Mali","Mauritania","Niger","Nigeria","Senegal","Sierra Leone","Togo"],
+			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance\nof high-quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge,\nvalues, and attitudes required for success in the 21st century.",
 			"source": "https://www.unicef.org/wca/what-we-do/education"
 		},
 		{
 			"region" : "East Africa",
-			"countries" : ["Djibouti", "Eritrea","Somalia","Sudan","S. Sudan","Mauritius","Comoros","Seychelles","Uganda","Rwanda","Burundi","Kenya","Tanzania","Zambia","Zimbabwe"],
-			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,
-			such as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located
-			far away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe
-			water and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers,
-			coupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
+			"countries" : ["Djibouti", "Eritrea","Somalia","Sudan","South Sudan","Mauritius","Comoros","Seychelles","Uganda","Rwanda","Burundi","Kenya","Tanzania","Zambia","Zimbabwe"],
+			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,\nsuch as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located\nfar away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe\nwater and separate latrines for boys and girls can also discourage\nchildren, especially girls, from attending school. These barriers,\ncoupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
 			"source": "https://www.unicef.org/esaro/5481_education_gender.html"
 		},
 		{
 			"region" : "Central Africa",
-			"countries" : ["Cameroon","Central African Rep.","Chad","Dem. Rep. Congo","Eq. Guinea","São Tomé and Príncipe"],
-			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance
-			of high-quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge,
-			values, and attitudes required for success in the 21st century.",
+			"countries" : ["Cameroon","Central African Rep.","Chad","Democratic Republic of Congo","Equatorial Guinea","Sao Tome and Principe"],
+			"summary" : "Millions of children in West Africa are still denied an education. Even pupils who complete basic education face a slim chance\nof high-quality learning. This is despite the need for quality education to help prepare children with the skills, knowledge,\nvalues, and attitudes required for success in the 21st century.",
 			"source": "https://www.unicef.org/wca/what-we-do/education"
 		},
 		{
 			"region" : "Southern Africa",
 			"countries" : ["Botswana", "Swaziland","Lesotho","Mozambique","Madagascar","Zambia","Zimbabwe","Malawi","Namibia","South Africa","Angola"],
-			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,
-			such as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located
-			far away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe
-			water and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers,
-			coupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
+			"summary" : "The barriers that keep children out of school are formidable and numerous. Often, parents cannot afford the direct and indirect costs,\nsuch as school books and uniforms, of their children’s schooling. Qualified teachers are in short supply, and many schools are located\nfar away from children’s homes, a factor that can increase the risk of sexual abuse and harassment for girls. Lack of access to safe\nwater and separate latrines for boys and girls can also discourage children, especially girls, from attending school. These barriers,\ncoupled with other obstacles - disability, exclusion and emergencies, for example - create high levels of out-of-school children for ESA.",
 			"source": "https://www.unicef.org/esaro/5481_education_gender.html"
 		}
 	]
-}\
+}
