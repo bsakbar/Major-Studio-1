@@ -17,4 +17,4 @@ Obtaining a quality education in African countries is one of UN Sustainable Deve
 ![alt text](https://bsakbar.github.io/major-studio-1/Final%20assignment/preview.png)
 
 
-[Launch Project](https://bsakbar.github.io/major-studio-1/Final%20assignment/Final_Project.html)
+## [Open Project](https://bsakbar.github.io/major-studio-1/Final%20assignment/Final_Project.html)
